@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Calculadora de descontos</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        
+    </head>
+    <body>
+
+        <form action="" name="f_calculadora" id="f_calculadora" method="post">
+            <div id="BOX1" name="BOX1">
+                <h1><b>CALCULADORA <br>DE CONTRIBUIÇÃO SOCIAL E IRRF</b></h1>
+            </div>
+
+            <div id="BOX2" name="BOX2">
+                <h2>VENCIMENTOS:
+                    <input id="f_vencimentos" name="f_vencimentos" type="text" value="" placeholder="Digite no formato: 1000.00 ou 1000,00" >
+                </h2>
+                <h2>PENSÃO:
+                    <input id="f_pensao" name="f_pensao" type="text" value="0" placeholder="Digite aqui">
+                </h2>
+                <h2>Nº DE DEPENDENTES:
+                    <input id="f_dependentes" name="f_dependentes" type="text" value="0" placeholder="Digite aqui" >
+                </h2>
+                <h2>
+                    <button id="f_limpar" name="f_limpar" type="reset">LIMPAR</button>
+                
+                    <button id="f_acionarjs" name="f_acionarjs" type="button" onclick="js_calcular()">CALCULAR</button>
+                </h2>
+            </div>
+        </form>
+
+        <script src="script.js"></script>
+
+        <div id="BOX3" name="BOX3">
+            <h2>
+                RESULTADO:
+            </h2>
+            <br>
+            <h2>
+                Vencimentos: R$ <span id="x"></span>
+            </h2>
+            <h2>
+                Faixa de contribuição: <span id="faixa"></span>
+            </h2>
+            <h2>
+                Alíquota de contribuição prev.:  <span id="aliquotacontribuicao"></span>%
+            </h2>
+            <h2>
+                <b>Desconto de contribuição prev.: R$ <span id="soma"></span></b>
+            </h2>
+            <h2>
+                Pensão: R$ <span id="pensao"></span>
+            </h2>
+            <h2>
+                Nº de dependentes:<span id="dependentes"></span>
+            </h2>
+            <h2>
+                Base de cálculo IRRF completa: R$<span id="basepadrao"></span>
+            </h2>
+            <h2>
+                Base de cálculo IRRF simplificada: R$<span id="basesimplificada"></span>
+            </h2>
+            <h2>
+                Base mais benéfica : R$<span id="basemaisbenefica"></span>
+            </h2>
+            <h2>
+                Faixa IRRF: <span id="faixair"></span>
+            </h2>
+            <h2>
+                Alíquota IRRF: <span id="aliquotair"></span>%
+            </h2>
+            <h2>
+                <b>Desconto em folha de IRRF: R$ <span id="somarir"></span></b>
+            </h2>
+            <h2>
+                <b>TOTAL DESCONTOS: R$<span id="totaldescontos"></span></b>
+                
+            </h2>
+            <h2 id="creditos" name="creditos">
+                Renata Veras Venturim @2023
+            </h2>
+        </div>
+    <div id="creditos"name="creditos">
+        
+    </div>
+    </body>
+</html>

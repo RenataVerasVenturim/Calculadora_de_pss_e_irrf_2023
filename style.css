@@ -1,0 +1,48 @@
+/*CSS Document*/
+
+body{
+    background-color: rgb(94, 99, 98);
+    color:black;
+    text-align: center;
+    align-items: center;
+    font-size: medium;
+    margin:0 auto;
+}
+
+#BOX1{
+    background-color: #000;
+    margin:5px 500px; 
+    color:#fff;
+    padding:10px 10px;
+}
+
+#BOX2{background-color: #FFF;
+    margin:5px 500px;
+    padding: 10px 10px;
+}
+
+#BOX3{
+    background-color: rgb(205, 248, 11);
+    color:#000;
+    margin: 5px 500px;
+    padding:10px 10px;    
+}
+
+h2{
+    font-size: 95%; 
+ }
+
+#creditos{
+    font-size:60%;
+    text-align: right;
+}
+
+input{
+    width: 240px;
+    text-align: center;   
+}
+
+BUTTON{
+    background-color: black;
+    color:white;
+}

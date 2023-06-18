@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Calculadora de descontos</title>
-        <style type="text/css">
-        </style>
-    </head>
-    <body>
-<script language="javascript">
-
-<!--  
-
+/*JS Document*/
+/*OBJETIVO: Calculadora de desconto em folha de Seguridade social*/
 /*Declaração das variáveis*/
+function js_calcular(){
     var x; //vencimento
     var faixa; //faixa de desconto da previdencia
     var descontofaixa1=0; // valor de desconto da faixa 1
@@ -19,35 +9,40 @@
     var descontofaixa3=0; // valor de desconto da faixa 3
     var descontofaixa4=0; // valor de desconto da faixa 4 com valor inferior ao teto
     var descontofaixa4maior=0; // valor de desconto da faixa 4 com valor superior ao teto do INSS
+    var aliquotacontribuicao=0; // alíquota de contribuição social
 
     var soma; // valor total de recolhimento da previdencia social na folha de pagamento
 
 /*Entrada de dados*/     
     /*Solicitar ao usuário o valor de seu vencimento básico R$*/
-    x=parseFloat(window.prompt('Digite seu vencimento básico (R$):','Digite no formato: 1500.00 ou 1500,00').replace(',', '.'));
+    x=parseFloat((document.forms.f_calculadora.f_vencimentos.value).replace(',', '.'));
     
-    document.write('Vencimentos: R$'+x);
+    if(x<=1319.99){window.alert('Valor inserido inferior ao salário mínimo');
 
-    /*Ver em qual faixa o usuário está*/
+    }
+    
+    else{
+    
+        /*Ver em qual faixa o usuário está*/
     if(x<=1320.00){
-        document.write('</p><p>Você está na faixa de contribuição previdenciária: <b>1</b></p><p>Alíquota = <b>7,5%</b>')
-        faixa=1;                    
+        faixa=1;
+        aliquotacontribuicao=7.50;
     }
     if(x>=1320.01 && x<=2571.29){
-        document.write('<p>Você está na faixa de contribuição previdenciária: <b>2</b></p><p>Alíquota = <b>9%</b></p>')
-        faixa=2;                    
+        faixa=2; 
+        aliquotacontribuicao=9;
     }
     if(x>=2571.30 && x<=3856.94){
-        document.write('<p>Você está na faixa de contribuição previdenciária: <b>3</b></p><p>Alíquota = <b>12%</b></p>')
-        faixa=3;                   
+        faixa=3;  
+        aliquotacontribuicao=12;
     }
     if(x>=3856.95 && x<=7507.49){
-        document.write('<p>Você está na faixa de contribuição previdenciária: <b>4</b></p><p>Alíquota = <b>14%</b></p>')
-        faixa=4;                    
+        faixa=4;  
+        aliquotacontribuicao=14;
     }
     if(x>7507.49){
-        document.write('<p>Você está na faixa de contribuição previdenciária:<b>4</b><p>Alíquota = <b>14%</b></p>')
         faixa=5;
+        aliquotacontribuicao=14;
     }
     
     /*Calcular o valor de desconto de cada faixa*/
@@ -84,74 +79,70 @@
     soma=descontofaixa1+descontofaixa2+descontofaixa3+descontofaixa4;
     
 
-/*Saída de dados*/
-    /*Informar o valor de desconto em folha de seguridade social em R$*/
- 
-    document.write('<p>O desconto em folha para contribuição de plano seguridade social é de: R$'+soma);
     
 /*Objetivo: Calculadora de desconto em folha de IRRF*/
 /*Declaração de variáveis*/
 var vencimento; // valor do vencimento básico
-var descontoprevidencia;    // desconto total na folha de pagamento referente a contribuição social 
-var pensao=0; // valor de pensão paga
-var dependentes=0; // quantidade de dependentes do usuário
-var basepadrao; // base de cálculo do IRRF padrão
-var basesimplificada; // base de cálculo do IRRF simplificado
-var basemaisbenefica; // base mais benéfica para o usuário (simplificado ou padrão com deduções)
-var descontoirfaixa1=0; // valor de desconto do IRRF da faixa 1
-var descontoirfaixa2=0; // valor de desconto do IRRF da faixa 2
-var descontoirfaixa3=0;// valor de desconto do IRRF da faixa 3
-var descontoirfaixa4=0;// valor de desconto do IRRF da faixa 4
-var descontoirfaixa5=0;// valor de desconto do IRRF da faixa 5
+var descontoprevidencia;    /*desconto total na folha de pagamento referente a contribuição social*/ 
+var pensao=0; /*valor de pensão paga*/
+var dependentes=0; /* quantidade de dependentes do usuário*/
+var basepadrao; /*base de cálculo do IRRF padrão*/
+var basesimplificada; /*base de cálculo do IRRF simplificado*/
+var basemaisbenefica; /*base mais benéfica para o usuário (simplificado ou padrão com deduções)*/
+var descontoirfaixa1=0; /*valor de desconto do IRRF da faixa 1*/
+var descontoirfaixa2=0; /* valor de desconto do IRRF da faixa 2*/
+var descontoirfaixa3=0;/* valor de desconto do IRRF da faixa 3*/
+var descontoirfaixa4=0;/* valor de desconto do IRRF da faixa 4*/
+var descontoirfaixa5=0;/* valor de desconto do IRRF da faixa 5*/
 var somarir; // TOTAL de descontos de IRRF
 var faixair=0; 
 var totaldescontos=0;
+var aliquotair=0;
 
 /*Entrada de dados*/
 vencimento=x;
 descontoprevidencia=soma;
-pensao=parseFloat(window.prompt('Valor referente a pensão:','00'));
-dependentes=parseFloat(window.prompt('Quantidade de dependentes:','00'));            
+pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
+dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);            
 basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
 basesimplificada=vencimento-528.00;
 
-
-/*Saída de dados*/
-document.write('<p>Pensão:'+pensao);
-document.write('<p>Nº de dependentes:'+dependentes);                   
-document.write('<p>A base de IRRF padrão é de:'+basepadrao);
-document.write('<p>A base de IRRF simplificada é de:'+basesimplificada);
+ 
     /*verificar qual base de cálculo é mais benéfica para o usuário*/
 
 if(basepadrao<=basesimplificada){
-    document.write('<p>A base '+basepadrao+' é mais benéfica')
-    basemaisbenefica=basepadrao;             
+    basemaisbenefica=basepadrao;  
+    document.getElementById("basemaisbenefica").textContent = basemaisbenefica.toFixed(2);
+               
 }
     else{ 
-        document.write('<p>A base '+basesimplificada+' é a mais benéfica')
         basemaisbenefica=basesimplificada;
+        document.getElementById("basemaisbenefica").textContent = basemaisbenefica.toFixed(2);
+
     }
     
     /*Ver em qual faixa o usuário está*/
     if(basemaisbenefica<=2112.00){
-        document.write('<p>Você está na faixa de IRRF: <b>1 - ISENTO</b><p>Alíquota:<b>0%</b></p>')
-        faixair=1;                    
+        faixair=1;
+        aliquotair=0;   
     }
     if(basemaisbenefica>=2112.01 && basemaisbenefica<=2826.65){
-        document.write('<p>Você está na faixa de IRRF: <b>2</b></p><p><b>Alíquota 7,5%</b></p>')
-        faixair=2;                    
+        faixair=2;     
+        aliquotair=7.5;
     }
     if(basemaisbenefica>=2826.66 && basemaisbenefica<=3751.05){
-        document.write('<p>Você está na faixa de IRRF: <b>3</b></p><p><b>Alíquota 15%</b></p>')
-        faixair=3;                   
+        faixair=3; 
+        aliquotair=15;
+                      
     }
     if(basemaisbenefica>=3751.06 && basemaisbenefica<=4664.68){
-        document.write('<p>Você está na faixa de IRRF: <b>4</b></p><p><b>Alíquota 22,5%</b></p>')
-        faixair=4;                    
+        faixair=4;    
+        aliquotair=22.5;   
+        
     }
     if(basemaisbenefica>4668.69){
-        document.write('<p>Você está na faixa de IRRF:<b>5</b></p><p><b>Alíquota 27,5%</b></p>')
         faixair=5;
+        aliquotair=27.5;
     }
 
         /*Calcular o valor de desconto de cada faixa IRRF*/
@@ -182,20 +173,40 @@ if(basepadrao<=basesimplificada){
         descontoirfaixa5=(basesimplificada-4664.69)*0.275; 
     }
 
-
+/*Saída de dados*/
+    
     /*Somar descontos de todas as faixas IRRF*/
-    somarir=descontoirfaixa1+descontoirfaixa2+descontoirfaixa3+descontoirfaixa4+descontoirfaixa5;
-                 
-    /*Informar o valor de desconto em folha de IRRF em R$*/
- 
-    document.write('<p>O desconto em folha de IRRF é de: R$'+somarir);
+    somarir=descontoirfaixa1+descontoirfaixa2+descontoirfaixa3+descontoirfaixa4+descontoirfaixa5;             
+        
+    /*Exibir o valor da variável x no elemento span com o id "x"*/
+    document.getElementById("x").textContent = x.toFixed(2); // Exibe o valor com 2 casas decimais
+
+    /*Exibir o valor da variável faixa no elemento span com o id "faixa"*/
+    document.getElementById("faixa").textContent = faixa.toFixed(0);             
+    /*Exibir o valor da variável aliquotacontribuicao no elemento span com o id "faixa"*/
+    document.getElementById("aliquotacontribuicao").textContent =  aliquotacontribuicao.toFixed(2);
+    /*Informar o valor de desconto em folha de seguridade social em R$*/
+    document.getElementById("soma").textContent = soma.toFixed(2);
+    /*Exibir o valor da variável pensao span com o id "pensao"*/
+    document.getElementById("pensao").textContent = pensao.toFixed(2);
+    /*Exibir o valor da variável dependentes span com o id "dependentes"*/
+    document.getElementById("dependentes").textContent = dependentes.toFixed(0);
+    /*Exibir o valor da variável basepadrao span com o id "basepadrao"*/
+    document.getElementById("basepadrao").textContent = basepadrao.toFixed(2);
+    /*Exibir o valor da variável basesimplificada span com o id "basesimplificada"*/
+    document.getElementById("basesimplificada").textContent = basesimplificada.toFixed(2);
+    /*Exibir o valor da variável soma span com o id "soma"*/
+    document.getElementById("soma").textContent = soma.toFixed(2);
+    /*Exibir o valor da variável faixair span com o id "faixair"*/
+   document.getElementById("faixair").textContent = faixair.toFixed(0);
+    /*Exibir o valor da variável aliquotair span com o id "aliquotair"*/
+    document.getElementById("aliquotair").textContent = aliquotair.toFixed(1);
+    /*Exibir o valor da variável somarir span com o id "somarir"*/
+    document.getElementById("somarir").textContent = somarir.toFixed(2);
     
     /*DESCONTOS TOTAIS - IRRF e CONTRIBUIÇÃO DE PREVIDÊNCIA SOCIAL*/
-    totaldedescontos=descontoprevidencia+somarir
-    document.write('<p>TOTAL DE DESCONTOS EM FOLHA (IRRF + CONTRIBUIÇÃO DE PREVIDÊNCIA SOCIAL):'+totaldedescontos);
+    totaldescontos=descontoprevidencia+somarir
+    document.getElementById("totaldescontos").textContent = totaldescontos.toFixed(2);
 
-//-->
 
-</script>
-</body>
-</html>
+}}
