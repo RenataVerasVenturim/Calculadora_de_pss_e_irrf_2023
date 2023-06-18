@@ -11,20 +11,17 @@ body{
 
 #BOX1{
     background-color: #000;
-    margin:5px 500px; 
     color:#fff;
     padding:10px 10px;
 }
 
 #BOX2{background-color: #FFF;
-    margin:5px 500px;
     padding: 10px 10px;
 }
 
 #BOX3{
     background-color: rgb(205, 248, 11);
     color:#000;
-    margin: 5px 500px;
     padding:10px 10px;    
 }
 
