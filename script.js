@@ -36,12 +36,22 @@ function js_calcular(){
     /*Solicitar ao usuário o valor de seu vencimento básico R$*/
     x=parseFloat((document.forms.f_calculadora.f_vencimentos.value).replace(',', '.'));
     
+    /*Verificar se o valor input de salário*/
     if(x<=1319.99){window.alert('Valor inserido inferior ao salário mínimo');
 
     }
     
     else{
-    
+    /*Validar se pensão foi colocado com valor negativo */
+        if(parseFloat((document.forms.f_calculadora.f_pensao.value).replace(',', '.'))<0){
+            window.alert('Número inválido para pensão R$');
+        }
+        /*Validar se quantidade de dependentes foi colocado com valor negativo */
+        else{ if(parseFloat(document.forms.f_calculadora.f_dependentes.value)<0){
+                window.alert('Número inválido para dependentes');
+                }
+                else{
+
         /*Ver em qual faixa o usuário está*/
     if(x<=1320.00){
         faixa=1;
@@ -244,5 +254,8 @@ if(basepadrao<=basesimplificada){
     vencimentoliquido=x-totaldescontos;
     document.getElementById("vencimentoliquido").textContent = vencimentoliquido.toFixed(2);
     
-
-}}
+    window.alert('Cálculo realizado com sucesso!')
+            }
+        }
+    }
+}

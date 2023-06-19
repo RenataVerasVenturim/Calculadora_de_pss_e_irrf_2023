@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
         <title>Calculadora de descontos</title>
         <link rel="stylesheet" type="text/css" href="style.css">
@@ -9,13 +10,13 @@
     <body>
 
         <form name="f_calculadora" id="f_calculadora" method="post">
-            <div id="BOX1">
+            <header><div id="BOX1">
                 <h1><b>CALCULADORA <br>DE CONTRIBUIÇÃO SOCIAL E IRRF</b></h1>
-            </div>
+            </div></header>
 
             <div id="BOX2">
                 <h2><label for="f_vencimentos">VENCIMENTOS + GRATIFICAÇÕES (R$):</label>
-                    <input id="f_vencimentos" name="f_vencimentos" type="text" value="" placeholder="Digite no formato: 1000.00 ou 1000,00" >
+                    <input id="f_vencimentos" name="f_vencimentos" type="text" value="" placeholder="Digite no formato: 1500.00 ou 1500,00" >
                 </h2>
                 <h2><label for="f_pensao">PENSÃO (R$):</label>
                     <input id="f_pensao" name="f_pensao" type="text" value="0" placeholder="Digite aqui">
@@ -31,8 +32,7 @@
             </div>
         </form>
 
-        <script src="script.js"></script>
-
+        
         <div id="BOX3">
             <h2>
                 RESULTADO:
@@ -84,20 +84,19 @@
             </h2>
        
             <br><br><br>
-            <h2 id="creditos">
-                Renata Veras Venturim @2023
-            </h2>
-            <p>
-                <a href="http://jigsaw.w3.org/css-validator/check/referer">
-                    <img src="http://jigsaw.w3.org/css-validator/images/vcss"
-                        alt="CSS válido!" >
-                </a>
+            
+            <footer>
+                <h2 id="creditos">
+                    Renata Veras Venturim @2023
+                
+                <p>
                 <a href="http://jigsaw.w3.org/css-validator/check/referer">
                     <img src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
                         alt="CSS válido!" >
                     </a>
-            </p>
+            </p></h2></footer>
         </div>
-        
+        <script src="script.js"></script>
+ 
     </body>
 </html>
