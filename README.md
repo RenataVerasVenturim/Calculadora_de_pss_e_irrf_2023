@@ -4,8 +4,15 @@
   
 </p>
 
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8"></img>
-
+<ul><li><b>Desktop view</li></ul>
+<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8">
+<br>
+  ---------------------------------------------------------------------------------------------------------------------
+<br>
+<ul><li>Mobile view</li></ul>
+<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/28b8829a-2fd2-42a6-b01a-7535535be9cb">
+<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/138c2dec-e8bc-4aaf-a9a8-19aeccb25f62">
+</b>
 <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/">Acessar projeto</a>
 
 <p>
