@@ -13,10 +13,12 @@ body{
     background-color: #000;
     color:#fff;
     padding:10px 10px;
+    font-size:100%;
 }
 
 #BOX2{background-color: #FFF;
     padding: 10px 10px;
+    font-size: 95%;
 }
 
 #BOX3{
@@ -30,8 +32,7 @@ h2{
  }
 
 h2.f_destaque{
-
-    font-size: larger;
+    font-size:95%;
     text-transform: uppercase;
     border: 1px solid black;
     background-color: #FFF;
