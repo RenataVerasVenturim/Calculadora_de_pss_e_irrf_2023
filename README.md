@@ -4,14 +4,16 @@
   
 </p>
 
-<ul><li><b>Desktop view</li></ul>
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8">
+<ul><li>Mobile view</li></ul>
+<img src="https://workana.s3.amazonaws.com/portfolios/ih/841ba2a93dfb590c75012fee8d93326d/mobile.jpg?response-content-disposition=inline%3Bfilename%3D%22mobile.jpg%22&response-content-type=image%2Fjpeg&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA33COQEVTJSIXHA73%2F20230619%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230619T201811Z&X-Amz-SignedHeaders=host&X-Amz-Expires=21600&X-Amz-Signature=afb51b81ccdc5d2bc85db49717b4c382c200779ef8041e7cfd42dd9498fedfea">
+</b>
 <br>
   ---------------------------------------------------------------------------------------------------------------------
 <br>
-<ul><li>Mobile view</li></ul>
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/28b8829a-2fd2-42a6-b01a-7535535be9cb">
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/138c2dec-e8bc-4aaf-a9a8-19aeccb25f62">
+
+<ul><li><b>Desktop view</li></ul>
+<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8">
+
 </b>
 <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/">Acessar projeto</a>
 
