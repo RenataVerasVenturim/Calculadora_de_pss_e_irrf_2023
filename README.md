@@ -4,8 +4,7 @@
   
 </p>
 
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/daa83c14-2483-48f8-8854-b50e5b76b326"></img>
-
+<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8"></img>
 
 <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/">Acessar projeto</a>
 
