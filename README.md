@@ -1,5 +1,8 @@
-<h1>CALCULADORA DE DESCONTOS EM FOLHA - IRRF E CONTRIBUIÇÃO SOCIAL (2023)</h1>
+<h1 text align="center">CALCULADORA DE DESCONTOS EM FOLHA - IRRF E CONTRIBUIÇÃO SOCIAL (2023)</h1>
 
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/bfacba60-2603-4c66-8928-3d8ecc779dc6"></img>
+<p text align="center">Tabela de IRRF e contribuição social vigentes em 2023</p>
+
+<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/f2a19bc7-46da-404e-8d65-c5050c458177"></img>
 
 <a href="https://renataverasventurim.github.io/Calculadoradefolhapagamento/">Acesse aqui</a>
+
