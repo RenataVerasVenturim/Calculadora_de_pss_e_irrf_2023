@@ -1,6 +1,7 @@
 <h1 text align="center">CALCULADORA DE DESCONTOS EM FOLHA - IRRF E PREVIDÊNCIA SOCIAL</h1>
 
-<p text align="center"><i> (Tabela vigente a partir de maio/2023)</i>
+<p text align="center"><i> (Tabela vigente a partir de maio/2023)<br>
+<a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/">Acessar projeto</a></i>
   
 </p>
 
@@ -15,7 +16,6 @@
 <img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8">
 
 </b>
-<a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/">Acessar projeto</a>
 
 <p>
   <ul><br>Base legal consultada: <a href="https://www.camara.leg.br/proposicoesWeb/prop_mostrarintegra?codteor=2266365">MEDIDA PROVISÓRIA Nº 1.171, DE 30 DE ABRIL DE 2023</a>
