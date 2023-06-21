@@ -34,26 +34,36 @@ function js_calcular(){
     
     
 /*Entrada de dados*/     
-    /*Solicitar ao usuário o valor de seu vencimento básico R$*/
+    /*Usuário insere salário/remuneração bruta tributável R$*/
     x=parseFloat((document.forms.f_calculadora.f_vencimentos.value).replace(',', '.'));
-    
-    /*Verificar se o valor input de salário é válido*/
-    if(x<=1319.99){window.alert('Valor inserido inferior ao salário mínimo');
-
+    /*Usuário insere o valor de outras deduções legais, se houver*/
+    outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
+    /*Usuário insere o valor de pensão, se houver*/
+    pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
+    /*Usuário insere a quantidade de dependentes, se houver */
+    dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);            
+        
+    /*Invalidar números negativos inseridos pelo usuário*/
+    if(x<0)
+        {
+            window.alert('Por favor, insira um número válido na remuneração');
     }
-    
     else{
-    /*Validar se pensão foi colocado com valor negativo */
-        if(parseFloat((document.forms.f_calculadora.f_pensao.value).replace(',', '.'))<0){
-            window.alert('Número inválido para pensão R$');
-        }
-        /*Validar se quantidade de dependentes foi colocado com valor negativo */
-        else{ if(parseFloat(document.forms.f_calculadora.f_dependentes.value)<0){
-                window.alert('Número inválido para dependentes');
+        if(pensao<0){
+            window.alert('Por favor, insira um número válido para pensão, em reais')
+        } 
+        else{
+            if(dependentes<0){
+                window.alert('Por favor, insira um número válido para dependentes')
+            }
+            else{
+                if(outrasdeducoes<0){
+                    window.alert('Por favor, insira um número válido para "outras deduções"')
                 }
                 else{
+   
 
-        /*Ver em qual faixa o usuário está*/
+    /*Ver em qual faixa o usuário está*/
     if(x<=1320.00){
         faixa=1;
         aliquotacontribuicao=7.50;
@@ -115,19 +125,14 @@ function js_calcular(){
         }
     }        
 
-    /*Somar descontos de todas as faixas*/
+    /*Somar descontos de todas as faixas - PREVIDENCIA SOCIAL*/
     soma=descontofaixa1+descontofaixa2+descontofaixa3+descontofaixa4;
     
-/*Objetivo: Calculadora de desconto em folha de IRRF*/
-
-/*Entrada de dados*/
-vencimento=x;
-descontoprevidencia=soma;
-pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
-dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);            
-basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
-basesimplificada=vencimento-528.00;
-outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
+    /*Objetivo: Calculadora de desconto em folha de IRRF*/
+    vencimento=x;
+    descontoprevidencia=soma;
+    basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
+    basesimplificada=vencimento-528.00;
 
  
     /*verificar qual base de cálculo é mais benéfica para o usuário*/
@@ -247,7 +252,9 @@ if(basepadrao<=basesimplificada){
     
     /*Aviso de cálculo realizado com sucesso*/
     window.alert('Cálculo realizado com sucesso!')
-            }
-        }
-    }
-}
+                                }
+                            }
+                        }
+                    }
+                }
+
