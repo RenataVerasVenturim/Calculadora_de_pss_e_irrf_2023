@@ -13,8 +13,7 @@
 <br>
 
 <ul><li><b>Desktop view</li></ul>
-<img src="https://github.com/RenataVerasVenturim/Calculadoradefolhapagamento/assets/129551549/7c4bed97-7320-4f3a-8b0a-848a629f65d8">
-
+<img src="https://github.com/RenataVerasVenturim/Calculadora_de_pss_e_irrf_2023/assets/129551549/057121bd-fa36-48d3-8b19-12c2c4cba2d4">
 </b>
 
 <p>
