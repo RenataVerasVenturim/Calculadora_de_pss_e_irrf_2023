@@ -33,3 +33,7 @@ indicação de sua espécie." (NR)
 <li>Dependentes - Número de dependentes cadastrados no IR</li>
 <li>Outras deduções - Previdência privada, Funpresp, FAPI, Parcela isenta de aposentadoria, reserva remunerada, reforma e pensão para declarante com 65 anos ou mais, caso não tenha sido deduzida dos rendimentos tributáveis. Carne-Leão: Livro Caixa, etc</li>
 </p>
+
+<h2>Teste de Desempenho:</h2>
+<img src="https://github.com/RenataVerasVenturim/Calculadora_de_pss_e_irrf_2023/assets/129551549/a71a364c-9e1b-4e36-b627-c5e587598878">
+
