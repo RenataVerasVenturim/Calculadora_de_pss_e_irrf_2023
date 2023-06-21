@@ -1,6 +1,6 @@
-<h1 text align="center">CALCULADORA DE DESCONTOS EM FOLHA - IRRF E CONTRIBUIÇÃO SOCIAL (2023)</h1>
+<h1 text align="center">CALCULADORA DE DESCONTOS EM FOLHA - IRRF E PREVIDÊNCIA SOCIAL</h1>
 
-<p text align="center">Tabela de IRRF e contribuição social vigentes em 2023
+<p text align="center"><i> (Tabela vigente a partir de maio/2023)</i>
   
 </p>
 
@@ -24,7 +24,12 @@ desconto simplificado mensal, correspondente a 25% (vinte e cinco por cento) do
 valor máximo da faixa com alíquota zero da tabela progressiva mensal, caso seja
 mais benéfico ao contribuinte, dispensadas a comprovação da despesa e a
 indicação de sua espécie." (NR)
-    
-  
-</p>
 
+</p>
+<p>Nomeclaturas:
+<ul><li><b>Salário/remuneração bruta<b/> - Inclui: vencimentos, gratificações, etc. Não inclui vale alimentação, vale transporte,etc.
+</li>
+<li>Pensão - Desconto em folha destinado a pensão alimentícia</li>
+<li>Dependentes - Número de dependentes cadastrados no IR</li>
+<li>Outras deduções - Previdência privada, Funpresp, FAPI, Parcela isenta de aposentadoria, reserva remunerada, reforma e pensão para declarante com 65 anos ou mais, caso não tenha sido deduzida dos rendimentos tributáveis. Carne-Leão: Livro Caixa, etc</li>
+</p>
