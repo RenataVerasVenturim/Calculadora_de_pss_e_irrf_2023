@@ -12,11 +12,13 @@
 
         <form name="f_calculadora" id="f_calculadora" method="post">
             <header><div id="BOX1">
-                <h1><b>CALCULADORA <br>DE CONTRIBUIÇÃO SOCIAL E IRRF</b></h1>
+                <h1><b>DESCONTOS CONTRACHEQUE<br>PREVIDÊNCIA SOCIAL E IRRF</b></h1>
             </div></header>
 
             <div id="BOX2">
-                <h2><label for="f_vencimentos">VENCIMENTOS + GRATIFICAÇÕES (R$):</label>
+                <h2 id="f_tabelautilizada">*Base: Tabela a partir de maio/2023
+                </h2>
+                <h2><label for="f_vencimentos">SALÁRIO/REMUNERAÇÃO BRUTA<span class="tooltip">: (R$)<sup>[?]</sup><span class="tooltip-text">Inclui: vencimentos, gratificações, etc. Não inclui vale alimentação, vale transporte,etc.</span>:</label>
                     <br><input id="f_vencimentos" name="f_vencimentos" type="text" value="" placeholder="Digite no formato:1500,00" >
                 </h2>
                 <h2><label for="f_pensao">PENSÃO (R$):</label>
@@ -24,6 +26,9 @@
                 </h2>
                 <h2><label for="f_dependentes">Nº DE DEPENDENTES:</label>
                    <br><input id="f_dependentes" name="f_dependentes" type="text" value="0" placeholder="Digite aqui" >
+                </h2>
+                <h2><label for="f_outrasdeducoes">OUTRAS DEDUÇÕES:<span class="tooltip">: (R$)<sup>[?]</sup><span class="tooltip-text">Previdência privada, Funpresp, FAPI, Parcela isenta de aposentadoria, reserva remunerada, reforma e pensão para declarante com 65 anos ou mais, caso não tenha sido deduzida dos rendimentos tributáveis. Carne-Leão: Livro Caixa.</span></label>
+                    <br><input id="f_outrasdeducoes" name="f_outrasdeducoes" type="text" value="0" placeholder="Previdência privada, Funpresp,..." >
                 </h2>
                 <h2>
                     <button id="f_limpar" name="f_limpar" type="reset">LIMPAR</button>
@@ -40,7 +45,7 @@
             </h2>
             <br>
             <h2>
-                Vencimentos: R$ <span id="x"></span>
+                SALÁRIO/REMUNERAÇÃO BRUTA: R$ <span id="x"></span>
             </h2>
             <h2>
                 Faixa de contribuição: <span id="faixa"></span>
@@ -49,13 +54,16 @@
                 Alíquota de contribuição prev.:  <span id="aliquotacontribuicao"></span>%
             </h2>
             <h2 class="f_destaque">
-                <b>Contribuição prev.: R$ <span id="soma"></span></b>
+                <b>Previdêncial social: R$ <span id="soma"></span></b>
             </h2>
             <h2>
                 Pensão: R$ <span id="pensao"></span>
             </h2>
             <h2>
                 Nº de dependentes:<span id="dependentes"></span>
+            </h2>
+            <h2>
+                Outras deduções legais:<span id="outrasdeducoes"></span>
             </h2>
             <h2>
                 Base de cálculo IRRF completa: R$<span id="basepadrao"></span>
@@ -75,15 +83,10 @@
             <h2 class="f_destaque">
                 <b>Desconto em folha de IRRF: R$ <span id="somarir"></span></b>
             </h2>
-            <h2 id="f_destaque">
-                <b>TOTAL DESCONTOS: R$<span id="totaldescontos"></span></b>
-                
-            </h2>
             <h2 class="f_destaque">
-                <b>VENCIMENTO LÍQUIDO: R$<span id="vencimentoliquido"></span></b>
-                
+                <b>TOTAL DESCONTOS: R$<span id="totaldescontos"></span></b>              
             </h2>
-       
+                   
             <br><br><br>
             
             <footer>

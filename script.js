@@ -17,6 +17,7 @@ function js_calcular(){
     var descontoprevidencia;    /*desconto total na folha de pagamento referente a contribuição social*/ 
     var pensao=0; /*valor de pensão paga*/
     var dependentes=0; /* quantidade de dependentes do usuário*/
+    var outrasdeducoes=0; /* outras deduções legais do usuário*/
     var basepadrao; /*base de cálculo do IRRF padrão*/
     var basesimplificada; /*base de cálculo do IRRF simplificado*/
     var basemaisbenefica; /*base mais benéfica para o usuário (simplificado ou padrão com deduções)*/
@@ -29,14 +30,14 @@ function js_calcular(){
     var faixair=0; // faixa de irrf em que o usuário se encontra
     var totaldescontos=0; // TOTAL de descontos de PSS e IRRF
     var aliquotair=0; // alíquota de irrf
-    var vencimentoliquido=0; // vencimento - irrf -pss
+    
     
     
 /*Entrada de dados*/     
     /*Solicitar ao usuário o valor de seu vencimento básico R$*/
     x=parseFloat((document.forms.f_calculadora.f_vencimentos.value).replace(',', '.'));
     
-    /*Verificar se o valor input de salário*/
+    /*Verificar se o valor input de salário é válido*/
     if(x<=1319.99){window.alert('Valor inserido inferior ao salário mínimo');
 
     }
@@ -93,19 +94,19 @@ function js_calcular(){
             if(faixa==3){
                 descontofaixa1= 1320.00*0.075;
                 descontofaixa2= (2571.29 - 1320.01)*0.09;
-                descontofaixa3= (x-2571.30)*0.12;
+                descontofaixa3= (x-2571.29)*0.12;
             }
             else{
                 if(faixa==4){
                     descontofaixa1= 1320.00*0.075;
                     descontofaixa2= (2571.29 - 1320.01)*0.09;
-                    descontofaixa3= (3856.94-2571.30)*0.12;                                        
+                    descontofaixa3= (3856.94-2571.29)*0.12;                                        
                     descontofaixa4= (x-3856.95)*0.14;                                                        
                 }
                 else{if(faixa==5){
                     descontofaixa1= 1320.00*0.075;
                     descontofaixa2= (2571.29 - 1320.01)*0.09;
-                    descontofaixa3= (3856.94-2571.30)*0.12;                                        
+                    descontofaixa3= (3856.94-2571.29)*0.12;                                        
                     descontofaixa4= (7507.49-3856.95)*0.14;                                                      
                 }
                     
@@ -126,6 +127,7 @@ pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
 dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);            
 basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
 basesimplificada=vencimento-528.00;
+outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
 
  
     /*verificar qual base de cálculo é mais benéfica para o usuário*/
@@ -181,29 +183,19 @@ if(basepadrao<=basesimplificada){
     }
     else{
         if(faixair==2){
-            descontoirfaixa1= (2112.00-0)*0;
-            descontoirfaixa2= (basesimplificada - 2112.01)*0.075;
+            descontoirfaixa2= basemaisbenefica*0.075-158.40;
         } 
         else{
             if(faixair==3){
-                descontoirfaixa1= (2112.00-0)*0;
-                descontoirfaixa2= (2826.65 - 2112.01)*0.075;
-                descontoirfaixa3= (basesimplificada-2826.66)*0.15;
+                descontoirfaixa3= basemaisbenefica*0.15-370.40;
             }  
             else{
                 if(faixair==4){
-                    descontoirfaixa1= (2112.00-0)*0;
-                    descontoirfaixa2= (2826.65 - 2112.01)*0.075;
-                    descontoirfaixa3= (3751.05-2826.66)*0.15;
-                    descontoirfaixa4= (basesimplificada-3751.06)*0.225;                                                        
+                    descontoirfaixa4= basemaisbenefica*0.225-651.73;                                                        
                 }
                 else{
-                    if(faixair==5){
-                        descontoirfaixa1= (2112.00-0)*0;
-                       descontoirfaixa2= (2826.65 - 2112.01)*0.075;
-                       descontoirfaixa3= (3751.05-2826.66)*0.15;
-                       descontoirfaixa4= (4664.68-3751.06)*0.225;      
-                       descontoirfaixa5=(basesimplificada-4664.69)*0.275; 
+                    if(faixair==5){     
+                       descontoirfaixa5=basemaisbenefica*0.275-884.96; 
                    }
                
                 }
@@ -235,6 +227,8 @@ if(basepadrao<=basesimplificada){
     document.getElementById("pensao").textContent = pensao.toFixed(2);
     /*Exibir o valor da variável dependentes span com o id "dependentes"*/
     document.getElementById("dependentes").textContent = dependentes.toFixed(0);
+    /*Exibir o valor da variável outrasdeducoes span com o id "outrasdeducoes"*/
+    document.getElementById("outrasdeducoes").textContent = outrasdeducoes.toFixed(2);
     /*Exibir o valor da variável basepadrao span com o id "basepadrao"*/
     document.getElementById("basepadrao").textContent = basepadrao.toFixed(2);
     /*Exibir o valor da variável basesimplificada span com o id "basesimplificada"*/
@@ -250,10 +244,8 @@ if(basepadrao<=basesimplificada){
     /*DESCONTOS TOTAIS - IRRF e CONTRIBUIÇÃO DE PREVIDÊNCIA SOCIAL*/
     totaldescontos=parseFloat(descontoprevidencia+somarir);
     document.getElementById("totaldescontos").textContent = totaldescontos.toFixed(2);
-    /*Exibir o valor da variável vencimentoliquido span com o id "liquido"*/
-    vencimentoliquido=x-totaldescontos;
-    document.getElementById("vencimentoliquido").textContent = vencimentoliquido.toFixed(2);
     
+    /*Aviso de cálculo realizado com sucesso*/
     window.alert('Cálculo realizado com sucesso!')
             }
         }
