@@ -34,18 +34,19 @@ function js_calcular(){
 /*Entrada de dados*/     
     /*Impedir entrada de valor vazio */
     x=document.forms.f_calculadora.f_vencimentos.value;
-
+    x=parseFloat(x.replace(',', '.'));
+    
     console.log(x);
 
-    if(x.trim()==="" || isNaN(x)){
+    if(x==="" || isNaN(x)){
         window.alert('Insira um valor de salário/remuneração bruta!')
         return;
     }
     else{
         
     /*Usuário insere salário/remuneração bruta tributável R$*/
-    x=parseFloat(x.replace(',', '.')); 
-      
+     
+     console.log(x); 
     /*Usuário insere o valor de outras deduções legais, se houver*/
     outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
     /*Usuário insere o valor de pensão, se houver*/
