@@ -9,7 +9,6 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
     </head>
     <body>
-        <button id="installButton" style="display: none;">Instalar App</button>
         <header id="BOX1">
             <nav>
             <picture>
@@ -29,7 +28,7 @@
                     <h2 id="f_tabelautilizada">*Base: Tabela a partir de maio/2023
                     </h2>
                     <h2><label for="f_vencimentos">SALÁRIO/REMUNERAÇÃO BRUTA: (R$):</label>
-                        <br><input id="f_vencimentos" name="f_vencimentos" value="" type="text" placeholder="Digite no formato:1500,00">
+                        <br><input id="f_vencimentos" name="f_vencimentos" value="" type="text" placeholder="Digite aqui">
                     </h2>
                     <h2><label for="f_pensao">PENSÃO (R$):</label>
                         <br><input id="f_pensao" name="f_pensao" type="text" value="0" placeholder="Digite aqui">
@@ -105,38 +104,5 @@
     
     <script src="script.js"></script>
     <script src="sw-registration.js"></script>
-    <script>
-        if ('serviceWorker' in navigator && window.matchMedia('(display-mode: standalone)').matches) {
-  // Navegador suporta Service Workers e o aplicativo já está instalado.
-  document.getElementById('installButton').style.display = 'none';
-} else if ('serviceWorker' in navigator && 'beforeinstallprompt' in window) {
-  // Navegador suporta Service Workers e o evento "beforeinstallprompt" está disponível.
-  const installButton = document.getElementById('installButton');
-
-  // Mostra o botão/link de instalação quando o usuário clicar nele.
-  installButton.style.display = 'block';
-
-  // Escute o evento "click" no botão/link para mostrar a tela de instalação.
-  installButton.addEventListener('click', () => {
-    window.addEventListener('beforeinstallprompt', (event) => {
-      // Impedir o prompt padrão de instalação.
-      event.preventDefault();
-
-      // Mostrar o prompt de instalação quando o usuário clicar.
-      event.prompt();
-
-      // Aguardar o resultado do prompt.
-      event.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('Usuário aceitou a instalação.');
-        } else {
-          console.log('Usuário cancelou a instalação.');
-        }
-      });
-    });
-  });
-}
-
-     </script>
-    </body>
+        </body>
 </html>
