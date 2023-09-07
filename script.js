@@ -35,8 +35,6 @@ function js_calcular(){
     /*Impedir entrada de valor vazio */
     x=document.forms.f_calculadora.f_vencimentos.value;
     x=parseFloat(x.replace(',', '.'));
-    
-    console.log(x);
 
     if(x==="" || isNaN(x)){
         window.alert('Insira um valor de salário/remuneração bruta!')
