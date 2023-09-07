@@ -1,32 +1,57 @@
 /*CSS Document*/
 
 body{
-    background-color: rgb(11, 248, 248);
+    background-color:white;
     color:black;
     text-align: center;
     align-items: center;
-    font-size: medium;
+    font-size: 16px;
     margin:0 auto;
     font-family: Arial, Helvetica, sans-serif;
     
 }
 
-#BOX1{
-    background-color: #000;
-    color:#fff;
-    padding:10px 10px;
-    font-size:100%;
+nav{
+    background-color:#f2f2f2;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.759);
+    margin: 2px 5px 7px 5px;
+    text-align: left;
+    border: 1px solid rgb(191, 184, 184);
+    padding:5px;
 }
 
-#BOX2{background-color: #FFF;
+img{
+    width:100px;
+    height:100px;
+}
+
+main{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.759);
+    margin: 2px 5px 7px 5px;
+    border: 1px solid rgb(191, 184, 184);
+    padding: 5px;
+    font-size: 100%;
+    margin:2px 5px;
+}
+
+
+#BOX2{
+    background-color: #000;
     padding: 10px 10px;
-    font-size: 95%;
+    color:white;
+}
+
+#f_tabelautilizada{
+    font-size: 110%;
 }
 
 #BOX3{
-    background-color: rgb(11, 248, 248);
+    background-color:#655959a2;
     color:#000;
-    padding:10px 10px;    
+    padding:10px 10px; 
 }
 
 h2{
@@ -35,10 +60,12 @@ h2{
  }
 
 h2.f_destaque{
-    font-size:95%;
+    font-size:110%;
     text-transform: uppercase;
     border: 1px solid black;
     background-color: #FFF;
+    padding:5px 5px;
+    font-weight: bold;
 } 
 
 #creditos{
@@ -53,21 +80,33 @@ input{
     padding:8px;   
 }
 
-button{
-    background-color: black;
+.btn{
+    background-color: #FF8700;
+    margin:5px 5px;
+    padding: 12px 30px;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow:1px 1px black;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.btn:hover{ 
+    background-color: #ff88008d;
     color:white;
 }
 
-button:hover{
-    background-color:gray ;
+.btn:active{
+    background-color: gray;
+    box-shadow:0px 0px black;
+}
+
+
+footer{
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.759);
     color:white;
+    border: 1px solid rgb(191, 184, 184);   
+    margin: 2px 5px 7px 5px; 
 }
-
-img{
-    border:0;width:88px;height:31px;
-}
-
-#f_tabelautilizada{
-    font-size: xx-small;
-}
-

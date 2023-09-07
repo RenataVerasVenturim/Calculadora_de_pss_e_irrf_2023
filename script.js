@@ -29,20 +29,32 @@ function js_calcular(){
     var somarir; // TOTAL de descontos de IRRF
     var faixair=0; // faixa de irrf em que o usuário se encontra
     var totaldescontos=0; // TOTAL de descontos de PSS e IRRF
-    var aliquotair=0; // alíquota de irrf
-    
-    
+    var aliquotair=0; // alíquota de irrf    
     
 /*Entrada de dados*/     
+    /*Impedir entrada de valor vazio */
+    x=document.forms.f_calculadora.f_vencimentos.value;
+
+    console.log(x);
+
+    if(x.trim()==="" || isNaN(x)){
+        window.alert('Insira um valor de salário/remuneração bruta!')
+        return;
+    }
+    else{
+        
     /*Usuário insere salário/remuneração bruta tributável R$*/
-    x=parseFloat((document.forms.f_calculadora.f_vencimentos.value).replace(',', '.'));
+    x=parseFloat(x.replace(',', '.')); 
+      
     /*Usuário insere o valor de outras deduções legais, se houver*/
     outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
     /*Usuário insere o valor de pensão, se houver*/
     pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
     /*Usuário insere a quantidade de dependentes, se houver */
-    dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);            
-        
+    dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);     
+    
+    /*Invalidar quando vencimento não for inserido */
+
     /*Invalidar números negativos inseridos pelo usuário*/
     if(x<0)
         {
@@ -258,3 +270,4 @@ if(basepadrao<=basesimplificada){
                     }
                 }
 
+            }

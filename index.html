@@ -4,104 +4,139 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="utf-8">
         <meta name="description" content="Calculadora de PSS e IRRF 2023 com base simplificada da medida provisória 1172/23">
-        <title>Calculadora de PSS e IRRF 2023</title>
+        <title>Calculadora</title>
         <link rel="stylesheet" type="text/css" href="style.css">
-        
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
     </head>
     <body>
+        <button id="installButton" style="display: none;">Instalar App</button>
+        <header id="BOX1">
+            <nav>
+            <picture>
+                <source media="(max-width:750px)" srcset="imgp.png" type="image/jpg">
+                <source media="(max-width:1050px)" srcset="imgm.png" type="image/jpg">
+                <img src="imgm.png" alt="ícone do app">
+            </picture>
+            </nav>
+        </header>
 
-        <form name="f_calculadora" id="f_calculadora" method="post">
-            <header><div id="BOX1">
-                <h1><b>DESCONTOS CONTRACHEQUE<br>PREVIDÊNCIA SOCIAL E IRRF</b></h1>
-            </div></header>
-
-            <div id="BOX2">
-                <h2 id="f_tabelautilizada">*Base: Tabela a partir de maio/2023
+        <main>
+            <form name="f_calculadora" id="f_calculadora" method="post">
+                <h1>
+                    <b>DESCONTOS CONTRACHEQUE PREVIDÊNCIA SOCIAL E IRRF</b>
+                </h1>
+                <div id="BOX2">
+                    <h2 id="f_tabelautilizada">*Base: Tabela a partir de maio/2023
+                    </h2>
+                    <h2><label for="f_vencimentos">SALÁRIO/REMUNERAÇÃO BRUTA: (R$):</label>
+                        <br><input id="f_vencimentos" name="f_vencimentos" value="" type="text" placeholder="Digite no formato:1500,00">
+                    </h2>
+                    <h2><label for="f_pensao">PENSÃO (R$):</label>
+                        <br><input id="f_pensao" name="f_pensao" type="text" value="0" placeholder="Digite aqui">
+                    </h2>
+                    <h2><label for="f_dependentes">Nº DE DEPENDENTES:</label>
+                    <br><input id="f_dependentes" name="f_dependentes" type="text" value="0" placeholder="Digite aqui" >
+                    </h2>
+                    <h2><label for="f_outrasdeducoes">OUTRAS DEDUÇÕES: (R$)</span></label>
+                        <br><input id="f_outrasdeducoes" name="f_outrasdeducoes" type="text" value="0" placeholder="Previdência privada, Funpresp,..." >
+                    </h2>
+                    <h2>
+                        <button class="btn" name="btn" type="reset">LIMPAR</button>
+                    
+                        <button class="btn" name="btn" type="button" onclick="js_calcular()">CALCULAR</button>
+                    </h2>
+                </div>
+            </form>
+        
+            <div id="BOX3">
+                <h2>
+                    RESULTADO:
                 </h2>
-                <h2><label for="f_vencimentos">SALÁRIO/REMUNERAÇÃO BRUTA: (R$):</label>
-                    <br><input id="f_vencimentos" name="f_vencimentos" type="text" value="" placeholder="Digite no formato:1500,00" >
-                </h2>
-                <h2><label for="f_pensao">PENSÃO (R$):</label>
-                    <br><input id="f_pensao" name="f_pensao" type="text" value="0" placeholder="Digite aqui">
-                </h2>
-                <h2><label for="f_dependentes">Nº DE DEPENDENTES:</label>
-                   <br><input id="f_dependentes" name="f_dependentes" type="text" value="0" placeholder="Digite aqui" >
-                </h2>
-                <h2><label for="f_outrasdeducoes">OUTRAS DEDUÇÕES: (R$)</span></label>
-                    <br><input id="f_outrasdeducoes" name="f_outrasdeducoes" type="text" value="0" placeholder="Previdência privada, Funpresp,..." >
+                <br>
+                <h2>
+                    SALÁRIO/REMUNERAÇÃO BRUTA: R$ <span id="x"></span>
                 </h2>
                 <h2>
-                    <button id="f_limpar" name="f_limpar" type="reset">LIMPAR</button>
-                
-                    <button id="f_acionarjs" name="f_acionarjs" type="button" onclick="js_calcular()">CALCULAR</button>
+                    Faixa de contribuição: <span id="faixa"></span>
                 </h2>
-            </div>
-        </form>
-
-        
-        <div id="BOX3">
-            <h2>
-                RESULTADO:
-            </h2>
-            <br>
-            <h2>
-                SALÁRIO/REMUNERAÇÃO BRUTA: R$ <span id="x"></span>
-            </h2>
-            <h2>
-                Faixa de contribuição: <span id="faixa"></span>
-            </h2>
-            <h2>
-                Alíquota de contribuição prev.:  <span id="aliquotacontribuicao"></span>%
-            </h2>
-            <h2 class="f_destaque">
-                <b>Previdêncial social: R$ <span id="soma"></span></b>
-            </h2>
-            <h2>
-                Pensão: R$ <span id="pensao"></span>
-            </h2>
-            <h2>
-                Nº de dependentes:<span id="dependentes"></span>
-            </h2>
-            <h2>
-                Outras deduções legais:<span id="outrasdeducoes"></span>
-            </h2>
-            <h2>
-                Base de cálculo IRRF completa: R$<span id="basepadrao"></span>
-            </h2>
-            <h2>
-                Base de cálculo IRRF simplificada: R$<span id="basesimplificada"></span>
-            </h2>
-            <h2>
-                Base mais benéfica : R$<span id="basemaisbenefica"></span>
-            </h2>
-            <h2>
-                Faixa IRRF: <span id="faixair"></span>
-            </h2>
-            <h2>
-                Alíquota IRRF: <span id="aliquotair"></span>%
-            </h2>
-            <h2 class="f_destaque">
-                <b>Desconto em folha de IRRF: R$ <span id="somarir"></span></b>
-            </h2>
-            <h2 class="f_destaque">
-                <b>TOTAL DESCONTOS: R$<span id="totaldescontos"></span></b>              
-            </h2>
-                   
-            <br><br><br>
+                <h2>
+                    Alíquota de contribuição prev.:  <span id="aliquotacontribuicao"></span>%
+                </h2>
+                <h2 class="f_destaque">
+                    <b>Previdêncial social: R$ <span id="soma"></span></b>
+                </h2>
+                <h2>
+                    Pensão: R$ <span id="pensao"></span>
+                </h2>
+                <h2>
+                    Nº de dependentes:<span id="dependentes"></span>
+                </h2>
+                <h2>
+                    Outras deduções legais:<span id="outrasdeducoes"></span>
+                </h2>
+                <h2>
+                    Base de cálculo IRRF completa: R$<span id="basepadrao"></span>
+                </h2>
+                <h2>
+                    Base de cálculo IRRF simplificada: R$<span id="basesimplificada"></span>
+                </h2>
+                <h2>
+                    Base mais benéfica : R$<span id="basemaisbenefica"></span>
+                </h2>
+                <h2>
+                    Faixa IRRF: <span id="faixair"></span>
+                </h2>
+                <h2>
+                    Alíquota IRRF: <span id="aliquotair"></span>%
+                </h2>
+                <h2 class="f_destaque">
+                    <b>Desconto em folha de IRRF: R$ <span id="somarir"></span></b>
+                </h2>
+                <h2 class="f_destaque">
+                    <b>TOTAL DESCONTOS: R$<span id="totaldescontos"></span></b>              
+                </h2>
+                    
+                <br><br><br>
             
-            <footer>
-                <h2 id="creditos">
-                    COPYRIGHT © @2023 Renata Veras Venturim , ALL RIGHTS RESERVED
-                
-                <p>
-                <a href="https://jigsaw.w3.org/css-validator/check/referer">
-                    <img src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
-                        alt="CSS válido!" >
-                </a>
-                <a href="https://validator.w3.org/"><img src="https://upcd.org.br/selos/selo-html5.png" alt="HTML Válido!"></a>
-            </p></h2></footer>
-        </div>
-        <script src="script.js"></script>
- 
+               </main>
+    <footer>
+        COPYRIGHT © @2023 Renata Veras Venturim , ALL RIGHTS RESERVED
+    </footer>
+    
+    <script src="script.js"></script>
+    <script src="sw-registration.js"></script>
+    <script>
+        if ('serviceWorker' in navigator && window.matchMedia('(display-mode: standalone)').matches) {
+  // Navegador suporta Service Workers e o aplicativo já está instalado.
+  document.getElementById('installButton').style.display = 'none';
+} else if ('serviceWorker' in navigator && 'beforeinstallprompt' in window) {
+  // Navegador suporta Service Workers e o evento "beforeinstallprompt" está disponível.
+  const installButton = document.getElementById('installButton');
+
+  // Mostra o botão/link de instalação quando o usuário clicar nele.
+  installButton.style.display = 'block';
+
+  // Escute o evento "click" no botão/link para mostrar a tela de instalação.
+  installButton.addEventListener('click', () => {
+    window.addEventListener('beforeinstallprompt', (event) => {
+      // Impedir o prompt padrão de instalação.
+      event.preventDefault();
+
+      // Mostrar o prompt de instalação quando o usuário clicar.
+      event.prompt();
+
+      // Aguardar o resultado do prompt.
+      event.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Usuário aceitou a instalação.');
+        } else {
+          console.log('Usuário cancelou a instalação.');
+        }
+      });
+    });
+  });
+}
+
+     </script>
     </body>
 </html>
