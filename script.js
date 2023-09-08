@@ -41,7 +41,8 @@ function js_calcular(){
         return;
     }
     else{
-     
+           
+     console.log(x); 
     /*Usuário insere o valor de outras deduções legais, se houver*/
     outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
     /*Usuário insere o valor de pensão, se houver*/
@@ -267,3 +268,4 @@ if(basepadrao<=basesimplificada){
                 }
 
             }
+
