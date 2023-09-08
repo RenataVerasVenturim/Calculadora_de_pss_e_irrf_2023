@@ -1,0 +1,132 @@
+/*CSS Document*/
+
+body{
+    background-color:white;
+    color:black;
+    text-align: center;
+    align-items: center;
+    font-size: 16px;
+    margin:0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+.install-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilo do texto do botão de instalação */
+.install-button-label {
+    font-weight: bold;
+}
+
+/* Estilo do botão de fechar ou cancelar */
+.close-button {
+    color: #777;
+    font-size: 18px;
+    cursor: pointer;
+}
+nav{
+    background-color:#f2f2f2;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.759);
+    margin: 2px 5px 7px 5px;
+    text-align: left;
+    border: 1px solid rgb(191, 184, 184);
+    padding:5px;
+}
+
+img{
+    width:100px;
+    height:100px;
+}
+
+main{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.759);
+    margin: 2px 5px 7px 5px;
+    border: 1px solid rgb(191, 184, 184);
+    padding: 5px;
+    font-size: 100%;
+    margin:2px 5px;
+}
+
+
+#BOX2{
+    background-color: #000;
+    padding: 10px 10px;
+    color:white;
+}
+
+#f_tabelautilizada{
+    font-size: 110%;
+}
+
+#BOX3{
+    background-color:#655959a2;
+    color:#000;
+    padding:10px 10px; 
+}
+
+h2{
+    font-size: 95%; 
+    margin-bottom: 10px;
+ }
+
+h2.f_destaque{
+    font-size:110%;
+    text-transform: uppercase;
+    border: 1px solid black;
+    background-color: #FFF;
+    padding:5px 5px;
+    font-weight: bold;
+} 
+
+#creditos{
+    font-size:60%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+input{
+    font-size:16px;
+    text-align: center;
+    padding:8px;   
+}
+
+.btn{
+    background-color: #FF8700;
+    margin:5px 5px;
+    padding: 12px 30px;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow:1px 1px black;
+    font-weight: bold;
+    font-size: 120%;
+}
+
+.btn:hover{ 
+    background-color: #ff88008d;
+    color:white;
+}
+
+.btn:active{
+    background-color: gray;
+    box-shadow:0px 0px black;
+}
+
+
+footer{
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.759);
+    color:white;
+    border: 1px solid rgb(191, 184, 184);   
+    margin: 2px 5px 7px 5px; 
+}
