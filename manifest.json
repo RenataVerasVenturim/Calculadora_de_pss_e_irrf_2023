@@ -1,4 +1,3 @@
-/*manifest.json gerado via: https://www.pwabuilder.com/, assim como pwabuilder-sw.js e icons*/
 {
   "background_color": "#ffffff",
   "description": "Calculadora de PSS e IRRF 2023 com base simplificada da medida provisória 1172/23",
