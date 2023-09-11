@@ -12,8 +12,8 @@
   O projeto consiste em uma PWA criada chamada "CalculeJá" que calcula o desconto em folha de irrf e previdência social. Por ser uma PWA, pode ser instalada no celular ou computador facilmente. Basta acessar o <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/" target:"_blank">link do projeto</a></i>, ir em "instalar CalculeJá, conforme a imagem abaixo:
   <img src="https://github.com/RenataVerasVenturim/Calculadora_de_pss_e_irrf_2023/assets/129551549/86f17f2e-4f8c-4f7e-b285-2b723f2f1936">
 
-Ou ir diretamente no link : <a href="https://drive.google.com/u/0/uc?id=1q7-pgNS9HrfhhMs0eljFYZkYbYxkPVza&export=download">Arquivo ".apk" para Android</a>
-".apk" é o aplicativo disponível para Android gerado
+Ou ir diretamente no link do ".apk" que é o aplicativo disponível para Android gerado : <a href="https://drive.google.com/u/0/uc?id=1q7-pgNS9HrfhhMs0eljFYZkYbYxkPVza&export=download">Link</a>
+
 
   <img src="https://github.com/RenataVerasVenturim/Calculadora_de_pss_e_irrf_2023/assets/129551549/6221ce1f-04f0-4fc0-bde9-abd5f77f09a5">
 
