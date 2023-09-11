@@ -1,4 +1,4 @@
-<h1 text align="center">PWA - CALCULADORA DE DESCONTOS EM FOLHA - IRRF E PREVIDÊNCIA SOCIAL</h1>
+<h1 text align="center">APP PWA - CALCULADORA DE DESCONTOS EM FOLHA - IRRF E PREVIDÊNCIA SOCIAL</h1>
 
 <p text align="center"><i> (Tabela vigente a partir de maio/2023)<br>
 <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/" target:"_blank">Acessar projeto</a></i>
@@ -9,7 +9,7 @@
 
 <ul><li>Sobre o projeto</li></ul>
 <p align="center">
-  O projeto consiste em uma PWA criada chamada "CalculeJá" que calcula o desconto em folha de irrf e previdência social. Por ser uma PWA, pode ser instalada no celular ou computador facilmente. Basta acessar o <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/" target:"_blank">link do projeto</a></i>, ir em "instalar CalculeJá, conforme a imagem abaixo:
+  O projeto consiste em um app criado chamado "CalculeJá" que calcula o desconto em folha de irrf e previdência social. Por ser uma PWA, pode ser instalada no celular ou computador facilmente. Basta acessar o <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/" target:"_blank">link do projeto</a></i>, ir em "instalar CalculeJá, conforme a imagem abaixo:
   <img src="https://github.com/RenataVerasVenturim/Calculadora_de_pss_e_irrf_2023/assets/129551549/86f17f2e-4f8c-4f7e-b285-2b723f2f1936">
 
 Ou ir diretamente no link do ".apk" que é o aplicativo disponível para Android gerado : <a href="https://drive.google.com/u/0/uc?id=1q7-pgNS9HrfhhMs0eljFYZkYbYxkPVza&export=download">Link</a>
