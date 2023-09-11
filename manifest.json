@@ -477,7 +477,7 @@
   ],
   "shortcuts": [],
   "id": "CalculaJá",
-  "lang": "pt"
+  "lang": "pt",
   "launch_handler": {
     "client_mode": "navigate-existing"
   }
