@@ -267,3 +267,9 @@ if(basepadrao<=basesimplificada){
 
             }
 
+document.getElementById("info-calculadora").addEventListener("click", function() {
+  var tooltip = document.getElementById("tooltip-calculadora");
+  tooltip.style.display = (tooltip.style.display === "block") ? "none" : "block";
+});
+            
+
