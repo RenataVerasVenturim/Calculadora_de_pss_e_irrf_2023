@@ -1,275 +1,118 @@
-/*JS Document*/
-/*OBJETIVO: Calculadora de desconto em folha de Seguridade social e IRRF*/
-/*Declaração das variáveis*/
-function js_calcular(){
-    var x; //vencimento
-    var faixa; //faixa de desconto da previdencia
-    var descontofaixa1=0; // valor de desconto da faixa 1
-    var descontofaixa2=0; // valor de desconto da faixa 2
-    var descontofaixa3=0; // valor de desconto da faixa 3
-    var descontofaixa4=0; // valor de desconto da faixa 4 com valor inferior ao teto
-    var descontofaixa4maior=0; // valor de desconto da faixa 4 com valor superior ao teto do INSS
-    var aliquotacontribuicao=0; // alíquota de contribuição social
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="description" content="Calculadora de PSS e IRRF 2023 com base simplificada da medida provisória 1172/23">
+        <title>Calculadora</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
+        <link rel="manifest" href="manifest.json">
+    </head>
+    <body>
+        <header id="BOX1">
+            <nav>
+            <picture>
+                <source media="(max-width:750px)" srcset="public/img/imgp.png" type="image/jpg">
+                <source media="(max-width:1050px)" srcset="public/img/imgm.png" type="image/jpg">
+                <img src="public/img/imgm.png" alt="ícone do app">
+            </picture>
+            </nav>
+        </header>
 
-    var soma; // valor total de recolhimento da previdencia social na folha de pagamento
-
-    var vencimento; // valor do vencimento básico
-    var descontoprevidencia;    /*desconto total na folha de pagamento referente a contribuição social*/ 
-    var pensao=0; /*valor de pensão paga*/
-    var dependentes=0; /* quantidade de dependentes do usuário*/
-    var outrasdeducoes=0; /* outras deduções legais do usuário*/
-    var basepadrao; /*base de cálculo do IRRF padrão*/
-    var basesimplificada; /*base de cálculo do IRRF simplificado*/
-    var basemaisbenefica; /*base mais benéfica para o usuário (simplificado ou padrão com deduções)*/
-    var descontoirfaixa1=0; /*valor de desconto do IRRF da faixa 1*/
-    var descontoirfaixa2=0; /* valor de desconto do IRRF da faixa 2*/
-    var descontoirfaixa3=0;/* valor de desconto do IRRF da faixa 3*/
-    var descontoirfaixa4=0;/* valor de desconto do IRRF da faixa 4*/
-    var descontoirfaixa5=0;/* valor de desconto do IRRF da faixa 5*/
-    var somarir; // TOTAL de descontos de IRRF
-    var faixair=0; // faixa de irrf em que o usuário se encontra
-    var totaldescontos=0; // TOTAL de descontos de PSS e IRRF
-    var aliquotair=0; // alíquota de irrf    
-    
-/*Entrada de dados*/     
-    /*Impedir entrada de valor vazio */
-    x=document.forms.f_calculadora.f_vencimentos.value;
-    x=parseFloat(x.replace(',', '.'));
-
-    if(x==="" || isNaN(x)){
-        window.alert('Insira um valor de salário/remuneração bruta!')
-        return;
-    }
-    else{
-    /*Usuário insere o valor de outras deduções legais, se houver*/
-    outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
-    /*Usuário insere o valor de pensão, se houver*/
-    pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
-    /*Usuário insere a quantidade de dependentes, se houver */
-    dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);     
-    
-    /*Invalidar quando vencimento não for inserido */
-
-    /*Invalidar números negativos inseridos pelo usuário*/
-    if(x<0)
-        {
-            window.alert('Por favor, insira um número válido na remuneração');
-    }
-    else{
-        if(pensao<0){
-            window.alert('Por favor, insira um número válido para pensão, em reais')
-        } 
-        else{
-            if(dependentes<0){
-                window.alert('Por favor, insira um número válido para dependentes')
-            }
-            else{
-                if(outrasdeducoes<0){
-                    window.alert('Por favor, insira um número válido para "outras deduções"')
-                }
-                else{
-   
-
-    /*Ver em qual faixa o usuário está*/
-    if(x<=1320.00){
-        faixa=1;
-        aliquotacontribuicao=7.50;
-    }
-    else{    if(x>=1320.01 && x<=2571.29){
-        faixa=2; 
-        aliquotacontribuicao=9;
-    }
-             else{if(x>=2571.30 && x<=3856.94){
-                faixa=3;  
-                aliquotacontribuicao=12;
-            }
-            else{        if(x>=3856.95 && x<=7507.49){
-                faixa=4;  
-                aliquotacontribuicao=14;
-            }
-                        else{
-                            if(x>7507.49){
-                                faixa=5;
-                                aliquotacontribuicao=14;
-                            }
-                }
-            } 
-        }
-    }
-
-    
-    
-    /*Calcular o valor de desconto de cada faixa*/
-    if(faixa==1){
-        descontofaixa1=(x-0)*0.075;
-    }
-    else{if(faixa==2){
-        descontofaixa1= 1320.00*0.075;
-        descontofaixa2= (x - 1320.01)*0.09;
-        }
-        else{
-            if(faixa==3){
-                descontofaixa1= 1320.00*0.075;
-                descontofaixa2= (2571.29 - 1320.01)*0.09;
-                descontofaixa3= (x-2571.29)*0.12;
-            }
-            else{
-                if(faixa==4){
-                    descontofaixa1= 1320.00*0.075;
-                    descontofaixa2= (2571.29 - 1320.01)*0.09;
-                    descontofaixa3= (3856.94-2571.29)*0.12;                                        
-                    descontofaixa4= (x-3856.95)*0.14;                                                        
-                }
-                else{if(faixa==5){
-                    descontofaixa1= 1320.00*0.075;
-                    descontofaixa2= (2571.29 - 1320.01)*0.09;
-                    descontofaixa3= (3856.94-2571.29)*0.12;                                        
-                    descontofaixa4= (7507.49-3856.95)*0.14;                                                      
-                }
+        <main>
+            <form name="f_calculadora" id="f_calculadora" method="post">
+                <h1>
+                    <b>DESCONTOS CONTRACHEQUE PREVIDÊNCIA SOCIAL E IRRF</b>
+                </h1>
+                <div id="BOX2">
+                    <h2 id="f_tabelautilizada">*Base: Tabela a partir de fev/2024
+                    </h2>
+                    <h2><label for="f_vencimentos">SALÁRIO/REMUNERAÇÃO BRUTA: (R$):</label>
+                        <sup class="info-icon" id="info-calculadora"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 512 512">
+                            <path fill="#25B7D3" d="M504.1,256C504.1,119,393,7.9,256,7.9C119,7.9,7.9,119,7.9,256C7.9,393,119,504.1,256,504.1C393,504.1,504.1,393,504.1,256z"></path><path fill="#FFF" d="M323.2 367.5c-1.4-2-4-2.8-6.3-1.7-24.6 11.6-52.5 23.9-58 25-.1-.1-.4-.3-.6-.7-.7-1-1.1-2.3-1.1-4 0-13.9 10.5-56.2 31.2-125.7 17.5-58.4 19.5-70.5 19.5-74.5 0-6.2-2.4-11.4-6.9-15.1-4.3-3.5-10.2-5.3-17.7-5.3-12.5 0-26.9 4.7-44.1 14.5-16.7 9.4-35.4 25.4-55.4 47.5-1.6 1.7-1.7 4.3-.4 6.2 1.3 1.9 3.8 2.6 6 1.8 7-2.9 42.4-17.4 47.6-20.6 4.2-2.6 7.9-4 10.9-4 .1 0 .2 0 .3 0 0 .2.1.5.1.9 0 3-.6 6.7-1.9 10.7-30.1 97.6-44.8 157.5-44.8 183 0 9 2.5 16.2 7.4 21.5 5 5.4 11.8 8.1 20.1 8.1 8.9 0 19.7-3.7 33.1-11.4 12.9-7.4 32.7-23.7 60.4-49.7C324.3 372.2 324.6 369.5 323.2 367.5zM322.2 84.6c-4.9-5-11.2-7.6-18.7-7.6-9.3 0-17.5 3.7-24.2 11-6.6 7.2-9.9 15.9-9.9 26.1 0 8 2.5 14.7 7.3 19.8 4.9 5.2 11.1 7.8 18.5 7.8 9 0 17-3.9 24-11.6 6.9-7.6 10.4-16.4 10.4-26.4C329.6 96 327.1 89.6 322.2 84.6z"></path>
+                            </svg></sup>
+                            <div class="info-tooltip" id="tooltip-calculadora">Salário/remuneração bruta - Inclui: vencimentos, gratificações, etc. Não inclui vale alimentação, vale transporte,etc.
+                            </div> 
+                        <br><input id="f_vencimentos" name="f_vencimentos" value="" type="text" placeholder="Digite aqui">
+                    </h2>
+                    <h2><label for="f_pensao">PENSÃO (R$):</label>
+                        <br><input id="f_pensao" name="f_pensao" type="text" value="0" placeholder="Digite aqui">
+                    </h2>
+                    <h2><label for="f_dependentes">Nº DE DEPENDENTES:</label>
+                    <br><input id="f_dependentes" name="f_dependentes" type="text" value="0" placeholder="Digite aqui" >
+                    </h2>
+                    <h2><label for="f_outrasdeducoes">OUTRAS DEDUÇÕES: (R$)</span></label>
+                        <br><input id="f_outrasdeducoes" name="f_outrasdeducoes" type="text" value="0" placeholder="Previdência privada, Funpresp,..." >
+                    </h2>
+                    <h2>
+                        <button class="btn" name="btn" type="reset">LIMPAR</button>
                     
-                }
-            }
-        }
-    }        
-
-    /*Somar descontos de todas as faixas - PREVIDENCIA SOCIAL*/
-    soma=descontofaixa1+descontofaixa2+descontofaixa3+descontofaixa4;
-    
-    /*Objetivo: Calculadora de desconto em folha de IRRF*/
-    vencimento=x;
-    descontoprevidencia=soma;
-    basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
-    basesimplificada=vencimento-528.00;
-
- 
-    /*verificar qual base de cálculo é mais benéfica para o usuário*/
-
-if(basepadrao<=basesimplificada){
-    basemaisbenefica=basepadrao;  
-    document.getElementById("basemaisbenefica").textContent = basemaisbenefica.toFixed(2);
-               
-}
-    else{ 
-        basemaisbenefica=basesimplificada;
-        document.getElementById("basemaisbenefica").textContent = basemaisbenefica.toFixed(2);
-
-    }
-    
-    /*Ver em qual faixa o usuário está*/
-    if(basemaisbenefica<=2112.00){
-        faixair=1;
-        aliquotair=0;   
-    }
-    else{if(basemaisbenefica>=2112.01 && basemaisbenefica<=2826.65){
-        faixair=2;     
-        aliquotair=7.5;
-    }   
-        else{
-            if(basemaisbenefica>=2826.66 && basemaisbenefica<=3751.05){
-                faixair=3; 
-                aliquotair=15;
-                              
-            }
-            else{
-                if(basemaisbenefica>=3751.06 && basemaisbenefica<=4664.68){
-                    faixair=4;    
-                    aliquotair=22.5;   
-                    
-                }
-                else{
-                    if(basemaisbenefica>4668.69){
-                        faixair=5;
-                        aliquotair=27.5;
-                    }
-               
-                }
-            
-            }
-        }
-
-    }
-
-        /*Calcular o valor de desconto de cada faixa IRRF*/
-    if(faixair==1){
-        descontoirfaixa1=(2112.00-0)*0;
-    }
-    else{
-        if(faixair==2){
-            descontoirfaixa2= basemaisbenefica*0.075-158.40;
-        } 
-        else{
-            if(faixair==3){
-                descontoirfaixa3= basemaisbenefica*0.15-370.40;
-            }  
-            else{
-                if(faixair==4){
-                    descontoirfaixa4= basemaisbenefica*0.225-651.73;                                                        
-                }
-                else{
-                    if(faixair==5){     
-                       descontoirfaixa5=basemaisbenefica*0.275-884.96; 
-                   }
-               
-                }
-            
-            }              
-           
-        }      
-
-    }
-    
-    
-
-        /*Somar descontos de todas as faixas IRRF*/
-        somarir=descontoirfaixa1+descontoirfaixa2+descontoirfaixa3+descontoirfaixa4+descontoirfaixa5;             
-
-/*Saída de dados*/
-    
+                        <button class="btn" name="btn" type="button" onclick="js_calcular()">CALCULAR</button>
+                    </h2>
+                </div>
+            </form>
         
-    /*Exibir o valor da variável x no elemento span com o id "x"*/
-    document.getElementById("x").textContent = x.toFixed(2); // Exibe o valor com 2 casas decimais
-
-    /*Exibir o valor da variável faixa no elemento span com o id "faixa"*/
-    document.getElementById("faixa").textContent = faixa.toFixed(0);             
-    /*Exibir o valor da variável aliquotacontribuicao no elemento span com o id "faixa"*/
-    document.getElementById("aliquotacontribuicao").textContent =  aliquotacontribuicao.toFixed(2);
-    /*Informar o valor de desconto em folha de seguridade social em R$*/
-    document.getElementById("soma").textContent = soma.toFixed(2);
-    /*Exibir o valor da variável pensao span com o id "pensao"*/
-    document.getElementById("pensao").textContent = pensao.toFixed(2);
-    /*Exibir o valor da variável dependentes span com o id "dependentes"*/
-    document.getElementById("dependentes").textContent = dependentes.toFixed(0);
-    /*Exibir o valor da variável outrasdeducoes span com o id "outrasdeducoes"*/
-    document.getElementById("outrasdeducoes").textContent = outrasdeducoes.toFixed(2);
-    /*Exibir o valor da variável basepadrao span com o id "basepadrao"*/
-    document.getElementById("basepadrao").textContent = basepadrao.toFixed(2);
-    /*Exibir o valor da variável basesimplificada span com o id "basesimplificada"*/
-    document.getElementById("basesimplificada").textContent = basesimplificada.toFixed(2);
-    /*Exibir o valor da variável soma span com o id "soma"*/
-    document.getElementById("soma").textContent = soma.toFixed(2);
-    /*Exibir o valor da variável faixair span com o id "faixair"*/
-   document.getElementById("faixair").textContent = faixair.toFixed(0);
-    /*Exibir o valor da variável aliquotair span com o id "aliquotair"*/
-    document.getElementById("aliquotair").textContent = aliquotair.toFixed(1);
-    /*Exibir o valor da variável somarir span com o id "somarir"*/
-    document.getElementById("somarir").textContent = somarir.toFixed(2);
-    /*DESCONTOS TOTAIS - IRRF e CONTRIBUIÇÃO DE PREVIDÊNCIA SOCIAL*/
-    totaldescontos=parseFloat(descontoprevidencia+somarir);
-    document.getElementById("totaldescontos").textContent = totaldescontos.toFixed(2);
-    
-    /*Aviso de cálculo realizado com sucesso*/
-    window.alert('Cálculo realizado com sucesso!')
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-
-document.getElementById("info-calculadora").addEventListener("click", function() {
-  var tooltip = document.getElementById("tooltip-calculadora");
-  tooltip.style.display = (tooltip.style.display === "block") ? "none" : "block";
-});
+            <div id="BOX3">
+                <h2>
+                    RESULTADO:
+                </h2>
+                <br>
+                <h2>
+                    SALÁRIO/REMUNERAÇÃO BRUTA: R$ <span id="x"></span>
+                </h2>
+                <h2>
+                    Faixa de contribuição: <span id="faixa"></span>
+                </h2>
+                <h2>
+                    Alíquota de contribuição prev.:  <span id="aliquotacontribuicao"></span>%
+                </h2>
+                <h2 class="f_destaque">
+                    <b>Previdêncial social: R$ <span id="soma"></span></b>
+                </h2>
+                <h2>
+                    Pensão: R$ <span id="pensao"></span>
+                </h2>
+                <h2>
+                    Nº de dependentes:<span id="dependentes"></span>
+                </h2>
+                <h2>
+                    Outras deduções legais:<span id="outrasdeducoes"></span>
+                </h2>
+                <h2>
+                    Base de cálculo IRRF completa: R$<span id="basepadrao"></span>
+                </h2>
+                <h2>
+                    Base de cálculo IRRF simplificada: R$<span id="basesimplificada"></span>
+                </h2>
+                <h2>
+                    Base mais benéfica : R$<span id="basemaisbenefica"></span>
+                </h2>
+                <h2>
+                    Faixa IRRF: <span id="faixair"></span>
+                </h2>
+                <h2>
+                    Alíquota IRRF: <span id="aliquotair"></span>%
+                </h2>
+                <h2 class="f_destaque">
+                    <b>Desconto em folha de IRRF: R$ <span id="somarir"></span></b>
+                </h2>
+                <h2 class="f_destaque">
+                    <b>TOTAL DESCONTOS: R$<span id="totaldescontos"></span></b>              
+                </h2>
+                    
+                <br><br><br>
             
-
+               </main>
+    <footer>
+        COPYRIGHT © @2023 Renata Veras Venturim , ALL RIGHTS RESERVED
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+        if(typeof navigator.serviceWorker !== 'undefined'){
+            navigator.serviceWorker.register('pwabuilder-sw.js')
+        }
+    </script>
+    </body>
+</html>
