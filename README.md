@@ -1,6 +1,6 @@
 <h1 text align="center">APP PWA - CALCULADORA DE DESCONTOS EM FOLHA - IRRF E PREVIDÊNCIA SOCIAL</h1>
 
-<p text align="center"><i> (Tabela vigente a partir de maio/2023)<br>
+<p text align="center"><i> (Tabela vigente a partir de fev/2024)<br>
 <a href="https://renataverasventurim.github.io/Calculadora_de_pss_e_irrf_2023/" target:"_blank">Acessar projeto</a></i>
 
 </p>
