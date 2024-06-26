@@ -2,6 +2,16 @@
 /*OBJETIVO: Calculadora de desconto em folha de Seguridade social e IRRF*/
 /*Declaração das variáveis*/
 function js_calcular(){
+    /*valores da tabela atual */
+    var tabelavalor1=1412.00;
+    var tabelavalor2=1412.01;
+    var tabelavalor3=2666.68;
+    var tabelavalor4=2666.69;
+    var tabelavalor5=4000.03;
+    var tabelavalor6=4000.04;
+    var tabelavalor7=7786.02;
+    var deducaoSimplificado=564.80;
+    /*----------------------- */
     var x; //vencimento
     var faixa; //faixa de desconto da previdencia
     var descontofaixa1=0; // valor de desconto da faixa 1
@@ -71,24 +81,24 @@ function js_calcular(){
    
 
     /*Ver em qual faixa o usuário está*/
-    if(x<=1412.00){
+    if(x<=tabelavalor1){
         faixa=1;
         aliquotacontribuicao=7.50;
     }
-    else{    if(x>=1412.01 && x<=2666.68){
+    else{    if(x>=tabelavalor2 && x<=tabelavalor3){
         faixa=2; 
         aliquotacontribuicao=9;
     }
-             else{if(x>=2666.69 && x<=4000.03){
+             else{if(x>=tabelavalor4 && x<=tabelavalor5){
                 faixa=3;  
                 aliquotacontribuicao=12;
             }
-            else{        if(x>=4000.04 && x<=7786.02){
+            else{        if(x>=tabelavalor6 && x<=tabelavalor7){
                 faixa=4;  
                 aliquotacontribuicao=14;
             }
                         else{
-                            if(x>7786.02){
+                            if(x>tabelavalor7){
                                 faixa=5;
                                 aliquotacontribuicao=14;
                             }
@@ -104,27 +114,27 @@ function js_calcular(){
         descontofaixa1=(x-0)*0.075;
     }
     else{if(faixa==2){
-        descontofaixa1= 1412.00*0.075;
-        descontofaixa2= (x - 1412.01)*0.09;
+        descontofaixa1= tabelavalor1*0.075;
+        descontofaixa2= (x - tabelavalor2)*0.09;
         }
         else{
             if(faixa==3){
-                descontofaixa1= 1412.00*0.075;
-                descontofaixa2= (2666.68 - 1412.01)*0.09;
-                descontofaixa3= (x-2666.68)*0.12;
+                descontofaixa1= tabelavalor1*0.075;
+                descontofaixa2= (tabelavalor3 - tabelavalor2)*0.09;
+                descontofaixa3= (x-tabelavalor3)*0.12;
             }
             else{
                 if(faixa==4){
-                    descontofaixa1= 1412.00*0.075;
-                    descontofaixa2= (2666.68 - 1412.01)*0.09;
-                    descontofaixa3= (4000.03-2666.68)*0.12;                                        
-                    descontofaixa4= (x-4000.04)*0.14;                                                        
+                    descontofaixa1= tabelavalor1*0.075;
+                    descontofaixa2= (tabelavalor3 - tabelavalor2)*0.09;
+                    descontofaixa3= (tabelavalor5-tabelavalor3)*0.12;                                        
+                    descontofaixa4= (x-tabelavalor6)*0.14;                                                        
                 }
                 else{if(faixa==5){
-                    descontofaixa1= 1412.00*0.075;
-                    descontofaixa2= (2666.68 - 1412.01)*0.09;
-                    descontofaixa3= (4000.03-2666.68)*0.12;                                        
-                    descontofaixa4= (7786.02-4000.04)*0.14;                                                      
+                    descontofaixa1= tabelavalor1*0.075;
+                    descontofaixa2= (tabelavalor3 - tabelavalor2)*0.09;
+                    descontofaixa3= (tabelavalor5-tabelavalor3)*0.12;                                        
+                    descontofaixa4= (tabelavalor7-tabelavalor6)*0.14;                                                      
                 }
                     
                 }
@@ -139,7 +149,7 @@ function js_calcular(){
     vencimento=x;
     descontoprevidencia=soma;
     basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
-    basesimplificada=vencimento-564.80;
+    basesimplificada=vencimento-deducaoSimplificado;
 
  
     /*verificar qual base de cálculo é mais benéfica para o usuário*/
