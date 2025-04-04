@@ -3,13 +3,13 @@
 /*Declaração das variáveis*/
 function js_calcular(){
     /*valores da tabela atual */
-    var tabelavalor1=1412.00;
-    var tabelavalor2=1412.01;
-    var tabelavalor3=2666.68;
-    var tabelavalor4=2666.69;
-    var tabelavalor5=4000.03;
-    var tabelavalor6=4000.04;
-    var tabelavalor7=7786.02;
+    var tabelavalor1=1518.00;/*1412.00;*/
+    var tabelavalor2=1518.01;/*1412.01*/
+    var tabelavalor3=2793.88/*2666.68*/;
+    var tabelavalor4=2793.89/*2666.69*/;
+    var tabelavalor5=4190.83/*4000.03*/;
+    var tabelavalor6=4190.84/*4000.04*/;
+    var tabelavalor7=8157.41/*7786.02*/;
     var deducaoSimplificado=564.80;
     /*----------------------- */
     var x; //vencimento
@@ -166,11 +166,11 @@ if(basepadrao<=basesimplificada){
     }
     
     /*Ver em qual faixa o usuário está*/
-    if(basemaisbenefica<=2112.00){
+    if(basemaisbenefica<=2259.20){
         faixair=1;
         aliquotair=0;   
     }
-    else{if(basemaisbenefica>=2112.01 && basemaisbenefica<=2826.65){
+    else{if(basemaisbenefica>=2259.21 && basemaisbenefica<=2826.65){
         faixair=2;     
         aliquotair=7.5;
     }   
@@ -201,7 +201,7 @@ if(basepadrao<=basesimplificada){
 
         /*Calcular o valor de desconto de cada faixa IRRF*/
     if(faixair==1){
-        descontoirfaixa1=(2112.00-0)*0;
+        descontoirfaixa1=(2259.20-0)*0;
     }
     else{
         if(faixair==2){
