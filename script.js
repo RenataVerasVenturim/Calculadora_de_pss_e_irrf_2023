@@ -1,284 +1,670 @@
-/*JS Document*/
-/*OBJETIVO: Calculadora de desconto em folha de Seguridade social e IRRF*/
-/*Declaração das variáveis*/
-function js_calcular(){
-    /*valores da tabela atual */
-    var tabelavalor1=1518.00;/*1412.00;*/
-    var tabelavalor2=1518.01;/*1412.01*/
-    var tabelavalor3=2793.88/*2666.68*/;
-    var tabelavalor4=2793.89/*2666.69*/;
-    var tabelavalor5=4190.83/*4000.03*/;
-    var tabelavalor6=4190.84/*4000.04*/;
-    var tabelavalor7=8157.41/*7786.02*/;
-    var deducaoSimplificado=564.80;
-    /*----------------------- */
-    var x; //vencimento
-    var faixa; //faixa de desconto da previdencia
-    var descontofaixa1=0; // valor de desconto da faixa 1
-    var descontofaixa2=0; // valor de desconto da faixa 2
-    var descontofaixa3=0; // valor de desconto da faixa 3
-    var descontofaixa4=0; // valor de desconto da faixa 4 com valor inferior ao teto
-    var descontofaixa4maior=0; // valor de desconto da faixa 4 com valor superior ao teto do INSS
-    var aliquotacontribuicao=0; // alíquota de contribuição social
+/* JS Document */
+/*
+ * OBJETIVO:
+ * Calculadora de desconto em folha de Previdência Social e IRRF
+ *
+ * ATUALIZAÇÃO:
+ * Valores e regras vigentes para 2026.
+ *
+ * IRRF:
+ * - Tabela mensal 2026
+ * - Desconto simplificado: R$ 607,20
+ * - Dependente: R$ 189,59
+ * - Redução do IR para rendimentos tributáveis até R$ 7.350,00
+ *
+ * PREVIDÊNCIA:
+ * - Modelo preservado conforme calculadora original:
+ *   7,5% / 9% / 12% / 14%
+ * - Limitado ao teto de R$ 8.475,55
+ */
 
-    var soma; // valor total de recolhimento da previdencia social na folha de pagamento
 
-    var vencimento; // valor do vencimento básico
-    var descontoprevidencia;    /*desconto total na folha de pagamento referente a contribuição social*/ 
-    var pensao=0; /*valor de pensão paga*/
-    var dependentes=0; /* quantidade de dependentes do usuário*/
-    var outrasdeducoes=0; /* outras deduções legais do usuário*/
-    var basepadrao; /*base de cálculo do IRRF padrão*/
-    var basesimplificada; /*base de cálculo do IRRF simplificado*/
-    var basemaisbenefica; /*base mais benéfica para o usuário (simplificado ou padrão com deduções)*/
-    var descontoirfaixa1=0; /*valor de desconto do IRRF da faixa 1*/
-    var descontoirfaixa2=0; /* valor de desconto do IRRF da faixa 2*/
-    var descontoirfaixa3=0;/* valor de desconto do IRRF da faixa 3*/
-    var descontoirfaixa4=0;/* valor de desconto do IRRF da faixa 4*/
-    var descontoirfaixa5=0;/* valor de desconto do IRRF da faixa 5*/
-    var somarir; // TOTAL de descontos de IRRF
-    var faixair=0; // faixa de irrf em que o usuário se encontra
-    var totaldescontos=0; // TOTAL de descontos de PSS e IRRF
-    var aliquotair=0; // alíquota de irrf    
-    
-/*Entrada de dados*/     
-    /*Impedir entrada de valor vazio */
-    x=document.forms.f_calculadora.f_vencimentos.value;
-    x=parseFloat(x.replace(',', '.'));
+/* ============================================================
+   FUNÇÃO PRINCIPAL
+   ============================================================ */
 
-    if(x==="" || isNaN(x)){
-        window.alert('Insira um valor de salário/remuneração bruta!')
+function js_calcular() {
+
+    /* ========================================================
+       TABELA PREVIDENCIÁRIA 2026
+       ======================================================== */
+
+    var tabelavalor1 = 1621.00;
+    var tabelavalor2 = 1621.01;
+    var tabelavalor3 = 2902.84;
+    var tabelavalor4 = 2902.85;
+    var tabelavalor5 = 4354.27;
+    var tabelavalor6 = 4354.28;
+    var tabelavalor7 = 8475.55;
+
+    /*
+     * Tabela:
+     *
+     * Até R$ 1.621,00       -> 7,5%
+     * R$ 1.621,01–2.902,84 -> 9%
+     * R$ 2.902,85–4.354,27 -> 12%
+     * R$ 4.354,28–8.475,55 -> 14%
+     *
+     * Acima do teto:
+     * contribuição fica limitada ao valor calculado
+     * até R$ 8.475,55.
+     */
+
+
+    /* ========================================================
+       TABELA IRRF 2026
+       ======================================================== */
+
+    var irrfFaixa1 = 2428.80;
+    var irrfFaixa2 = 2826.65;
+    var irrfFaixa3 = 3751.05;
+    var irrfFaixa4 = 4664.68;
+
+    var irrfAliquota1 = 0.00;
+    var irrfAliquota2 = 0.075;
+    var irrfAliquota3 = 0.15;
+    var irrfAliquota4 = 0.225;
+    var irrfAliquota5 = 0.275;
+
+    /*
+     * Parcelas a deduzir:
+     *
+     * Faixa 1: R$ 0,00
+     * Faixa 2: R$ 182,16
+     * Faixa 3: R$ 394,16
+     * Faixa 4: R$ 675,49
+     * Faixa 5: R$ 908,73
+     */
+
+    var irrfDeducao1 = 0.00;
+    var irrfDeducao2 = 182.16;
+    var irrfDeducao3 = 394.16;
+    var irrfDeducao4 = 675.49;
+    var irrfDeducao5 = 908.73;
+
+
+    /* ========================================================
+       DEDUÇÕES IRRF
+       ======================================================== */
+
+    var deducaoSimplificado = 607.20;
+    var deducaoDependente = 189.59;
+
+
+    /* ========================================================
+       REDUÇÃO IRRF 2026
+       ======================================================== */
+
+    var limiteReducaoIntegral = 5000.00;
+    var limiteReducaoParcial = 7350.00;
+
+    /*
+     * Para rendimentos até R$ 5.000:
+     * o IR calculado pela tabela é reduzido até zero.
+     *
+     * De R$ 5.000,01 até R$ 7.350:
+     *
+     * redução =
+     * 978,62 - (0,133145 × rendimento tributável)
+     *
+     * Acima de R$ 7.350:
+     * não há redução.
+     */
+
+
+    /* ========================================================
+       DECLARAÇÃO DAS VARIÁVEIS
+       ======================================================== */
+
+    var x; // remuneração bruta
+
+    var faixa = 0;
+    var aliquotacontribuicao = 0;
+
+    var descontofaixa1 = 0;
+    var descontofaixa2 = 0;
+    var descontofaixa3 = 0;
+    var descontofaixa4 = 0;
+
+    var soma = 0;
+
+    var vencimento = 0;
+    var descontoprevidencia = 0;
+
+    var pensao = 0;
+    var dependentes = 0;
+    var outrasdeducoes = 0;
+
+    var basepadrao = 0;
+    var basesimplificada = 0;
+    var basemaisbenefica = 0;
+
+    var descontoirfaixa1 = 0;
+    var descontoirfaixa2 = 0;
+    var descontoirfaixa3 = 0;
+    var descontoirfaixa4 = 0;
+    var descontoirfaixa5 = 0;
+
+    var somarir = 0;
+    var reducaoIR = 0;
+
+    var faixair = 0;
+    var aliquotair = 0;
+
+    var totaldescontos = 0;
+
+
+    /* ========================================================
+       ENTRADA DE DADOS
+       ======================================================== */
+
+    x = document.forms.f_calculadora.f_vencimentos.value;
+
+    x = parseFloat(
+        x.replace(',', '.')
+    );
+
+
+    /* Verificar remuneração */
+
+    if (isNaN(x)) {
+
+        window.alert(
+            'Insira um valor de salário/remuneração bruta!'
+        );
+
         return;
     }
-    else{
-    /*Usuário insere o valor de outras deduções legais, se houver*/
-    outrasdeducoes=parseFloat(document.forms.f_calculadora.f_outrasdeducoes.value);
-    /*Usuário insere o valor de pensão, se houver*/
-    pensao=parseFloat(document.forms.f_calculadora.f_pensao.value);
-    /*Usuário insere a quantidade de dependentes, se houver */
-    dependentes=parseFloat(document.forms.f_calculadora.f_dependentes.value);     
-    
-    /*Invalidar quando vencimento não for inserido */
 
-    /*Invalidar números negativos inseridos pelo usuário*/
-    if(x<0)
-        {
-            window.alert('Por favor, insira um número válido na remuneração');
-    }
-    else{
-        if(pensao<0){
-            window.alert('Por favor, insira um número válido para pensão, em reais')
-        } 
-        else{
-            if(dependentes<0){
-                window.alert('Por favor, insira um número válido para dependentes')
-            }
-            else{
-                if(outrasdeducoes<0){
-                    window.alert('Por favor, insira um número válido para "outras deduções"')
-                }
-                else{
-   
 
-    /*Ver em qual faixa o usuário está*/
-    if(x<=tabelavalor1){
-        faixa=1;
-        aliquotacontribuicao=7.50;
+    /* ========================================================
+       LEITURA DOS DEMAIS CAMPOS
+       ======================================================== */
+
+    outrasdeducoes = parseFloat(
+        document.forms.f_calculadora.f_outrasdeducoes.value
+    );
+
+    pensao = parseFloat(
+        document.forms.f_calculadora.f_pensao.value
+    );
+
+    dependentes = parseFloat(
+        document.forms.f_calculadora.f_dependentes.value
+    );
+
+
+    /*
+     * Se os campos estiverem vazios, considerar zero.
+     */
+
+    if (isNaN(outrasdeducoes)) {
+        outrasdeducoes = 0;
     }
-    else{    if(x>=tabelavalor2 && x<=tabelavalor3){
-        faixa=2; 
-        aliquotacontribuicao=9;
+
+    if (isNaN(pensao)) {
+        pensao = 0;
     }
-             else{if(x>=tabelavalor4 && x<=tabelavalor5){
-                faixa=3;  
-                aliquotacontribuicao=12;
-            }
-            else{        if(x>=tabelavalor6 && x<=tabelavalor7){
-                faixa=4;  
-                aliquotacontribuicao=14;
-            }
-                        else{
-                            if(x>tabelavalor7){
-                                faixa=5;
-                                aliquotacontribuicao=14;
-                            }
-                }
-            } 
+
+    if (isNaN(dependentes)) {
+        dependentes = 0;
+    }
+
+
+    /* ========================================================
+       VALIDAÇÕES
+       ======================================================== */
+
+    if (x < 0) {
+
+        window.alert(
+            'Por favor, insira um número válido na remuneração.'
+        );
+
+        return;
+    }
+
+
+    if (pensao < 0) {
+
+        window.alert(
+            'Por favor, insira um número válido para pensão, em reais.'
+        );
+
+        return;
+    }
+
+
+    if (dependentes < 0) {
+
+        window.alert(
+            'Por favor, insira um número válido para dependentes.'
+        );
+
+        return;
+    }
+
+
+    if (outrasdeducoes < 0) {
+
+        window.alert(
+            'Por favor, insira um número válido para "outras deduções".'
+        );
+
+        return;
+    }
+
+
+    /* ========================================================
+       CÁLCULO DA PREVIDÊNCIA SOCIAL
+       ======================================================== */
+
+    /*
+     * Determinação da faixa previdenciária.
+     */
+
+    if (x <= tabelavalor1) {
+
+        faixa = 1;
+        aliquotacontribuicao = 7.50;
+
+    }
+    else if (x <= tabelavalor3) {
+
+        faixa = 2;
+        aliquotacontribuicao = 9.00;
+
+    }
+    else if (x <= tabelavalor5) {
+
+        faixa = 3;
+        aliquotacontribuicao = 12.00;
+
+    }
+    else {
+
+        faixa = 4;
+        aliquotacontribuicao = 14.00;
+
+    }
+
+
+    /* ========================================================
+       CÁLCULO PROGRESSIVO DA PREVIDÊNCIA
+       ======================================================== */
+
+    /*
+     * Faixa 1
+     */
+
+    descontofaixa1 =
+        Math.min(x, tabelavalor1) * 0.075;
+
+
+    /*
+     * Faixa 2
+     */
+
+    if (x > tabelavalor1) {
+
+        descontofaixa2 =
+            (Math.min(x, tabelavalor3) - tabelavalor1) * 0.09;
+
+    }
+
+
+    /*
+     * Faixa 3
+     */
+
+    if (x > tabelavalor3) {
+
+        descontofaixa3 =
+            (Math.min(x, tabelavalor5) - tabelavalor3) * 0.12;
+
+    }
+
+
+    /*
+     * Faixa 4
+     *
+     * Limitada ao teto de R$ 8.475,55.
+     */
+
+    if (x > tabelavalor5) {
+
+        descontofaixa4 =
+            (Math.min(x, tabelavalor7) - tabelavalor5) * 0.14;
+
+    }
+
+
+    /*
+     * Total da previdência
+     */
+
+    soma =
+        descontofaixa1 +
+        descontofaixa2 +
+        descontofaixa3 +
+        descontofaixa4;
+
+
+    /* ========================================================
+       CÁLCULO DA BASE DO IRRF
+       ======================================================== */
+
+    vencimento = x;
+
+    descontoprevidencia = soma;
+
+
+    /*
+     * BASE COM DEDUÇÕES LEGAIS
+     *
+     * Previdência
+     * Pensão
+     * Dependentes
+     * Outras deduções legais
+     */
+
+    basepadrao =
+        vencimento
+        - descontoprevidencia
+        - pensao
+        - (dependentes * deducaoDependente)
+        - outrasdeducoes;
+
+
+    /*
+     * BASE COM DESCONTO SIMPLIFICADO
+     *
+     * Em 2026:
+     * R$ 607,20
+     */
+
+    basesimplificada =
+        vencimento - deducaoSimplificado;
+
+
+    /*
+     * A base mais benéfica é a MENOR das duas.
+     */
+
+    basemaisbenefica =
+        Math.min(
+            basepadrao,
+            basesimplificada
+        );
+
+
+    /*
+     * Evitar base negativa.
+     */
+
+    if (basemaisbenefica < 0) {
+
+        basemaisbenefica = 0;
+
+    }
+
+
+    /* ========================================================
+       TABELA IRRF 2026
+       ======================================================== */
+
+    if (basemaisbenefica <= irrfFaixa1) {
+
+        faixair = 1;
+        aliquotair = 0;
+
+        descontoirfaixa1 = 0;
+
+    }
+    else if (basemaisbenefica <= irrfFaixa2) {
+
+        faixair = 2;
+        aliquotair = 7.5;
+
+        descontoirfaixa2 =
+            (basemaisbenefica * irrfAliquota2)
+            - irrfDeducao2;
+
+    }
+    else if (basemaisbenefica <= irrfFaixa3) {
+
+        faixair = 3;
+        aliquotair = 15;
+
+        descontoirfaixa3 =
+            (basemaisbenefica * irrfAliquota3)
+            - irrfDeducao3;
+
+    }
+    else if (basemaisbenefica <= irrfFaixa4) {
+
+        faixair = 4;
+        aliquotair = 22.5;
+
+        descontoirfaixa4 =
+            (basemaisbenefica * irrfAliquota4)
+            - irrfDeducao4;
+
+    }
+    else {
+
+        faixair = 5;
+        aliquotair = 27.5;
+
+        descontoirfaixa5 =
+            (basemaisbenefica * irrfAliquota5)
+            - irrfDeducao5;
+
+    }
+
+
+    /* ========================================================
+       IRRF ANTES DA REDUÇÃO
+       ======================================================== */
+
+    somarir =
+        descontoirfaixa1 +
+        descontoirfaixa2 +
+        descontoirfaixa3 +
+        descontoirfaixa4 +
+        descontoirfaixa5;
+
+
+    /*
+     * Segurança contra resultado negativo.
+     */
+
+    if (somarir < 0) {
+
+        somarir = 0;
+
+    }
+
+
+    /* ========================================================
+       REDUÇÃO DO IRRF - 2026
+       ======================================================== */
+
+    /*
+     * IMPORTANTE:
+     *
+     * A redução utiliza o RENDIMENTO TRIBUTÁVEL
+     * sujeito à incidência mensal.
+     *
+     * Portanto, utiliza "x" e NÃO
+     * "basemaisbenefica".
+     */
+
+
+    if (x <= limiteReducaoIntegral) {
+
+        /*
+         * Até R$ 5.000,00:
+         * reduzir o IR calculado até zero.
+         */
+
+        reducaoIR = somarir;
+
+    }
+    else if (x <= limiteReducaoParcial) {
+
+        /*
+         * R$ 5.000,01 até R$ 7.350,00
+         */
+
+        reducaoIR =
+            978.62 -
+            (0.133145 * x);
+
+
+        /*
+         * A redução não pode ser maior
+         * que o próprio IR devido.
+         */
+
+        if (reducaoIR > somarir) {
+
+            reducaoIR = somarir;
+
         }
+
+
+        /*
+         * Segurança contra redução negativa.
+         */
+
+        if (reducaoIR < 0) {
+
+            reducaoIR = 0;
+
+        }
+
+    }
+    else {
+
+        /*
+         * Acima de R$ 7.350,00:
+         * não há redução.
+         */
+
+        reducaoIR = 0;
+
     }
 
-    
-    
-    /*Calcular o valor de desconto de cada faixa*/
-    if(faixa==1){
-        descontofaixa1=(x-0)*0.075;
+
+    /*
+     * IRRF final após a redução.
+     */
+
+    somarir =
+        somarir - reducaoIR;
+
+
+    if (somarir < 0) {
+
+        somarir = 0;
+
     }
-    else{if(faixa==2){
-        descontofaixa1= tabelavalor1*0.075;
-        descontofaixa2= (x - tabelavalor2)*0.09;
-        }
-        else{
-            if(faixa==3){
-                descontofaixa1= tabelavalor1*0.075;
-                descontofaixa2= (tabelavalor3 - tabelavalor2)*0.09;
-                descontofaixa3= (x-tabelavalor3)*0.12;
-            }
-            else{
-                if(faixa==4){
-                    descontofaixa1= tabelavalor1*0.075;
-                    descontofaixa2= (tabelavalor3 - tabelavalor2)*0.09;
-                    descontofaixa3= (tabelavalor5-tabelavalor3)*0.12;                                        
-                    descontofaixa4= (x-tabelavalor6)*0.14;                                                        
-                }
-                else{if(faixa==5){
-                    descontofaixa1= tabelavalor1*0.075;
-                    descontofaixa2= (tabelavalor3 - tabelavalor2)*0.09;
-                    descontofaixa3= (tabelavalor5-tabelavalor3)*0.12;                                        
-                    descontofaixa4= (tabelavalor7-tabelavalor6)*0.14;                                                      
-                }
-                    
-                }
-            }
-        }
-    }        
 
-    /*Somar descontos de todas as faixas - PREVIDENCIA SOCIAL*/
-    soma=descontofaixa1+descontofaixa2+descontofaixa3+descontofaixa4;
-    
-    /*Objetivo: Calculadora de desconto em folha de IRRF*/
-    vencimento=x;
-    descontoprevidencia=soma;
-    basepadrao=vencimento-descontoprevidencia-pensao-(dependentes*189.59);
-    basesimplificada=vencimento-deducaoSimplificado;
 
- 
-    /*verificar qual base de cálculo é mais benéfica para o usuário*/
+    /* ========================================================
+       TOTAL DE DESCONTOS
+       ======================================================== */
 
-if(basepadrao<=basesimplificada){
-    basemaisbenefica=basepadrao;  
-    document.getElementById("basemaisbenefica").textContent = basemaisbenefica.toFixed(2);
-               
+    totaldescontos =
+        descontoprevidencia +
+        somarir;
+
+
+    /* ========================================================
+       SAÍDA DOS RESULTADOS
+       ======================================================== */
+
+    document.getElementById("x").textContent =
+        x.toFixed(2);
+
+
+    document.getElementById("faixa").textContent =
+        faixa.toFixed(0);
+
+
+    document.getElementById("aliquotacontribuicao").textContent =
+        aliquotacontribuicao.toFixed(2);
+
+
+    document.getElementById("soma").textContent =
+        soma.toFixed(2);
+
+
+    document.getElementById("pensao").textContent =
+        pensao.toFixed(2);
+
+
+    document.getElementById("dependentes").textContent =
+        dependentes.toFixed(0);
+
+
+    document.getElementById("outrasdeducoes").textContent =
+        outrasdeducoes.toFixed(2);
+
+
+    document.getElementById("basepadrao").textContent =
+        basepadrao.toFixed(2);
+
+
+    document.getElementById("basesimplificada").textContent =
+        basesimplificada.toFixed(2);
+
+
+    document.getElementById("basemaisbenefica").textContent =
+        basemaisbenefica.toFixed(2);
+
+
+    document.getElementById("faixair").textContent =
+        faixair.toFixed(0);
+
+
+    document.getElementById("aliquotair").textContent =
+        aliquotair.toFixed(1);
+
+
+    document.getElementById("somarir").textContent =
+        somarir.toFixed(2);
+
+
+    document.getElementById("totaldescontos").textContent =
+        totaldescontos.toFixed(2);
+
+
+    /* ========================================================
+       FINALIZAÇÃO
+       ======================================================== */
+
+    window.alert(
+        'Cálculo realizado com sucesso!'
+    );
+
 }
-    else{ 
-        basemaisbenefica=basesimplificada;
-        document.getElementById("basemaisbenefica").textContent = basemaisbenefica.toFixed(2);
 
-    }
-    
-    /*Ver em qual faixa o usuário está*/
-    if(basemaisbenefica<=2259.20){
-        faixair=1;
-        aliquotair=0;   
-    }
-    else{if(basemaisbenefica>=2259.21 && basemaisbenefica<=2826.65){
-        faixair=2;     
-        aliquotair=7.5;
-    }   
-        else{
-            if(basemaisbenefica>=2826.66 && basemaisbenefica<=3751.05){
-                faixair=3; 
-                aliquotair=15;
-                              
-            }
-            else{
-                if(basemaisbenefica>=3751.06 && basemaisbenefica<=4664.68){
-                    faixair=4;    
-                    aliquotair=22.5;   
-                    
-                }
-                else{
-                    if(basemaisbenefica>4668.69){
-                        faixair=5;
-                        aliquotair=27.5;
-                    }
-               
-                }
-            
-            }
-        }
 
-    }
+/* ============================================================
+   TOOLTIP DA CALCULADORA
+   ============================================================ */
 
-        /*Calcular o valor de desconto de cada faixa IRRF*/
-    if(faixair==1){
-        descontoirfaixa1=(2259.20-0)*0;
-    }
-    else{
-        if(faixair==2){
-            descontoirfaixa2= basemaisbenefica*0.075-169.54;
-        } 
-        else{
-            if(faixair==3){
-                descontoirfaixa3= basemaisbenefica*0.15-381.44;
-            }  
-            else{
-                if(faixair==4){
-                    descontoirfaixa4= basemaisbenefica*0.225-662.77;                                                        
-                }
-                else{
-                    if(faixair==5){     
-                       descontoirfaixa5=basemaisbenefica*0.275-896.00; 
-                   }
-               
-                }
-            
-            }              
-           
-        }      
+document.getElementById("info-calculadora")
+    .addEventListener("click", function () {
 
-    }
-    
-    
+        var tooltip =
+            document.getElementById("tooltip-calculadora");
 
-        /*Somar descontos de todas as faixas IRRF*/
-        somarir=descontoirfaixa1+descontoirfaixa2+descontoirfaixa3+descontoirfaixa4+descontoirfaixa5;             
+        tooltip.style.display =
+            (tooltip.style.display === "block")
+                ? "none"
+                : "block";
 
-/*Saída de dados*/
-    
-        
-    /*Exibir o valor da variável x no elemento span com o id "x"*/
-    document.getElementById("x").textContent = x.toFixed(2); // Exibe o valor com 2 casas decimais
-
-    /*Exibir o valor da variável faixa no elemento span com o id "faixa"*/
-    document.getElementById("faixa").textContent = faixa.toFixed(0);             
-    /*Exibir o valor da variável aliquotacontribuicao no elemento span com o id "faixa"*/
-    document.getElementById("aliquotacontribuicao").textContent =  aliquotacontribuicao.toFixed(2);
-    /*Informar o valor de desconto em folha de seguridade social em R$*/
-    document.getElementById("soma").textContent = soma.toFixed(2);
-    /*Exibir o valor da variável pensao span com o id "pensao"*/
-    document.getElementById("pensao").textContent = pensao.toFixed(2);
-    /*Exibir o valor da variável dependentes span com o id "dependentes"*/
-    document.getElementById("dependentes").textContent = dependentes.toFixed(0);
-    /*Exibir o valor da variável outrasdeducoes span com o id "outrasdeducoes"*/
-    document.getElementById("outrasdeducoes").textContent = outrasdeducoes.toFixed(2);
-    /*Exibir o valor da variável basepadrao span com o id "basepadrao"*/
-    document.getElementById("basepadrao").textContent = basepadrao.toFixed(2);
-    /*Exibir o valor da variável basesimplificada span com o id "basesimplificada"*/
-    document.getElementById("basesimplificada").textContent = basesimplificada.toFixed(2);
-    /*Exibir o valor da variável soma span com o id "soma"*/
-    document.getElementById("soma").textContent = soma.toFixed(2);
-    /*Exibir o valor da variável faixair span com o id "faixair"*/
-   document.getElementById("faixair").textContent = faixair.toFixed(0);
-    /*Exibir o valor da variável aliquotair span com o id "aliquotair"*/
-    document.getElementById("aliquotair").textContent = aliquotair.toFixed(1);
-    /*Exibir o valor da variável somarir span com o id "somarir"*/
-    document.getElementById("somarir").textContent = somarir.toFixed(2);
-    /*DESCONTOS TOTAIS - IRRF e CONTRIBUIÇÃO DE PREVIDÊNCIA SOCIAL*/
-    totaldescontos=parseFloat(descontoprevidencia+somarir);
-    document.getElementById("totaldescontos").textContent = totaldescontos.toFixed(2);
-    
-    /*Aviso de cálculo realizado com sucesso*/
-    window.alert('Cálculo realizado com sucesso!')
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-
-document.getElementById("info-calculadora").addEventListener("click", function() {
-  var tooltip = document.getElementById("tooltip-calculadora");
-  tooltip.style.display = (tooltip.style.display === "block") ? "none" : "block";
-});
-            
+    });
